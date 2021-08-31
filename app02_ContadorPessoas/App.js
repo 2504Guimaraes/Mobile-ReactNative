@@ -1,116 +1,117 @@
 import React, { Component } from 'react'
-import { View, Text, Image, Dimensions, Button, StyleSheet, TextInput } from 'react-native'
+import { 
+  View, 
+  Text,
+  StyleSheet,
+  Dimensions,
+  ScrollView,
+  Button,
+  TouchableHighlight
+} from 'react-native'
 
+const estilo = StyleSheet.create({
+  screen: {
+    height: Dimensions.get('window').height,
+    paddingRight: 15,
+    paddingLeft: 15,
+    justifyContent: 'center', alignItems: 'center'
+  },
+  counter: {
+    backgroundColor: '#fff',
+    padding: 10,
+    width: Dimensions.get('window').width - 30,
+    height: Dimensions.get('window').height
+  },
+  title: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: '#e77c0b'
+  },
+  paragraph: {
+    textAlign: 'center',
+    fontSize: 16,
+    marginTop: 15,
+    marginBottom: 20,
+  },
+  counterBox: {
+    borderWidth: 2,
+    borderColor: '#cecece',
+    alignItems: 'flex-end',
+    padding: 15
+  },
+  number: {color: 'red', fontSize: 28, fontWeight: 'bold' },
+  wrapper: {
+    marginTop: 20,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  buttonBox: {
+    flexDirection: 'row',
+    padding: 10,
+    width: (2 * 75) + 55
+  },
+  btnText: {
+    color: '#fff', 
+    fontWeight: 'bold',
+    fontSize: 35
+  },
+  btnAdd: {
+    alignItems: 'center', justifyContent: 'center',
+    height: 65,
+    width: 75,
+    backgroundColor: '#4CAF50',
+    borderWidth: 2,
+    borderColor: '#1a781e'
+  },
+  btnRemove: {
+    alignItems: 'center', justifyContent: 'center',
+    height: 65,
+    width: 75,
+    backgroundColor: '#ff7777',
+    marginLeft: 35,
+    borderWidth: 2,
+    borderColor: '#c00404'
+  }
+})
 
-class App extends Component {
+class Contador extends Component {
   constructor(props) {
     super(props)
-    this.state = { nome: "Seu nome digitado" }
-    this.nomeDefault = this.mudarNome.bind(this)
-  }
-
-  mudarNome(nomeDigitado) {
-    if (nomeDigitado.length > 0) {
-      this.setState({ nome: nomeDigitado })
-    }
-    else {
-      this.setState({ nome: "Digite algo!" })
-    }
   }
 
   render() {
     return(
-      <View style={ styles.area }>
-        <TextInput placeholder="  Digite seu nome"
-          style={ styles.inputStyle }
-          onChangeText={ this.mudarNome }
-        />
-        <Button title="Mostrar nome" /* Botões em react-native não aceitam style */
-          onPress={ () => {
-            this.mudarNome("...") 
-          }} 
-        />
-        <Text style={ styles.txtNome }>
-          { this.state.nome }
+      <View style={estilo.counter}>
+        <Text style={estilo.title}>Contador de Pessoas</Text>
+        <Text style={estilo.paragraph}>
+          Toque no botão verde para adicionar uma nova pessoa, 
+          e no botão vermelho para retirar.
         </Text>
+        <View style={estilo.counterBox}>
+          <Text style={estilo.number}>0</Text>
+        </View>
+        <View style={estilo.wrapper}>
+          <View style={estilo.buttonBox}>
+            <TouchableHighlight style={estilo.btnAdd}>
+              <Text style={estilo.btnText}>+</Text>
+            </TouchableHighlight>
+            <TouchableHighlight style={estilo.btnRemove}>
+              <Text style={estilo.btnText}>-</Text>
+            </TouchableHighlight>
+          </View>
+        </View>
       </View>
-    )
+    ) 
   }
 }
 
-const styles = StyleSheet.create({
-  inputStyle: {
-    borderWidth: 2,
-    marginBottom: 15,
-    height: 40,
-    borderRadius: 2,
-    borderColor: '#d4d4d4'
-  },
-  area: {
-    height: Dimensions.get("window").height,
-    backgroundColor: '#f2f2f2',
-    padding: 15
-  },
-  btn: {
-    padding: 10,
-    backgroundColor: 'red'
-  },
-  txtNome: {
-    fontSize: 16,  
-    textAlign: 'center', 
-    marginTop: 15,
-    borderWidth: 2,
-    padding: 10,
-    borderStyle: 'dotted',
-    borderRadius: 5
-  }
-})
-
-/*
-
------------------------------------------------------------
-
-Código da aula do dia 28/08/2021 antes do teste com STATES:
-
------------------------------------------------------------ 
-
-class App extends Component {
-  render() {
-    let screenHeight = Dimensions.get("window").height
-    let frase = "Go ahead mr.Joestar!!!"
-    return (
-      <View style={{ backgroundColor: "#f1f1f1", height: screenHeight, padding: 15 }}>
-        <Text>Olá turma novamente!</Text>
-        <Text>Meu segundo App</Text>
-        <Text style={{ color: "#ff0000", fontSize: 25 }}>
-          React Native
-        </Text>
-        <JosephJoestar 
-          largura={200} 
-          altura={200}
-          nome={'Joseph Joestar - Parte 3'} 
-        />
-        <Text style={{ fontSize: 25, marginTop: 15 }}>{frase}</Text>
-      </View>
-    )
-  }
+const Screen = () => {
+  return(
+    <View style={estilo.screen}>
+      <Contador/>
+    </View>
+  )
 }
 
-class JosephJoestar extends Component {
-  render() {
-    let img = "https://i.pinimg.com/originals/6d/f1/e0/6df1e02c8232e44a3001e14659633896.png"
-    return (
-      <View>
-        <Image
-          source={{uri: img }}
-          style={{ width: this.props.largura , height: this.props.altura }} 
-        />
-        <Text>{ this.props.nome }</Text>
-      </View>
-    )
-  }
-}
-
-*/
-
-export default App
+export default Screen
