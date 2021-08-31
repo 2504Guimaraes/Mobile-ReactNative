@@ -76,8 +76,16 @@ const estilo = StyleSheet.create({
 })
 
 class Contador extends Component {
-  constructor(props) {
-    super(props)
+  
+  state = { count: 0 }
+
+  addPerson = () => {
+    this.setState({ count: this.state.count + 1 })
+  }
+
+  removePerson = () => {
+    if (this.state.count > 0)
+      this.setState({ count: this.state.count - 1 })
   }
 
   render() {
@@ -89,16 +97,21 @@ class Contador extends Component {
           e no botão vermelho para retirar.
         </Text>
         <View style={estilo.counterBox}>
-          <Text style={estilo.number}>0</Text>
+          <Text style={estilo.number}>{ this.state.count }</Text>
         </View>
         <View style={estilo.wrapper}>
           <View style={estilo.buttonBox}>
-            <TouchableHighlight style={estilo.btnAdd}>
+            
+            <TouchableHighlight 
+              style={estilo.btnAdd} onPress={ this.addPerson }>
               <Text style={estilo.btnText}>+</Text>
             </TouchableHighlight>
-            <TouchableHighlight style={estilo.btnRemove}>
+
+            <TouchableHighlight 
+              style={estilo.btnRemove} onPress={ this.removePerson }>
               <Text style={estilo.btnText}>-</Text>
             </TouchableHighlight>
+
           </View>
         </View>
       </View>
