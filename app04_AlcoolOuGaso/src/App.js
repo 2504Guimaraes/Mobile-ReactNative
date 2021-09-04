@@ -3,7 +3,8 @@ import {
   View, 
   Text,
   StyleSheet,
-  Dimensions 
+  Dimensions,
+  Image 
 } from 'react-native'
 
 
@@ -24,7 +25,7 @@ class Verificador extends Component {
 
   render() {
     return(
-      <Text>something...</Text>
+      <Text>Álccol ou Gasolina</Text>
     )
   }
 }
@@ -32,7 +33,6 @@ class Verificador extends Component {
 export default App = () => {
   return(
     <View style={estilo.screen}>
-      <Text>ok</Text>
       <Verificador/>
     </View>
   )
