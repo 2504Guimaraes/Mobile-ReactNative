@@ -77,6 +77,9 @@ class Verificador extends Component {
   constructor(props) {
     super(props)
 
+    this.input1 = React.createRef()
+    this.input2 = React.createRef()
+
     this.state = { 
       etanol: 0, 
       gasolina: 0, 
@@ -95,8 +98,6 @@ class Verificador extends Component {
       this.setState({ conclusao: 'Use álcool.' })
     else if (vlResultado > 0.7)
       this.setState({ conclusao: 'Use gasolina.' })
-    else if (vlResultado == null)
-      this.setState({ conclusao: '' })
   }
 
   calcular = () => {
@@ -104,9 +105,19 @@ class Verificador extends Component {
     const b = this.state.gasolina
     if ((a != null && a != 0) && (b != null && b != 0)) {
       if (!isNaN(a) && !isNaN(b)) {
-        this.setState({ resultado: (a / b).toFixed(2) })
+        this.setState({ resultado: (a / b).toFixed(3) })
         this.verificar()
+        this.input1.current.clear()
+        this.input2.current.clear()
+      } 
+      else {
+        this.setState({ conclusao: 'Digite apenas números!' })
       }
+    } 
+    else {
+      this.setState({ 
+        conclusao: 'Digite em todos os campos!' 
+      })
     }
   }
 
@@ -123,14 +134,16 @@ class Verificador extends Component {
         <Text style={estilo.inputTitles}>Digite o preço da gasolina</Text>
         
         <TextInput
-          style={estilo.inputs}
+          ref={ this.input1 }
           onChangeText={ this.pegaEtanol }
+          style={estilo.inputs}
           placeholder=" Digite o preco da gasolina" />
         <Text style={estilo.inputTitles}>Digite o preço do álcool</Text>
         
         <TextInput
-          style={estilo.inputs}
+          ref={ this.input2 }
           onChangeText={ this.pegaGasolina }
+          style={estilo.inputs}
           placeholder=" Digite o preco do álcool" />
         
         <TouchableHighlight
@@ -140,7 +153,7 @@ class Verificador extends Component {
         </TouchableHighlight>
 
         <Text style={estilo.result}>
-          Et = { this.state.etanol }  |  Gas = { this.state.gasolina }  |  R = { this.state.resultado }, logo { this.state.conclusao }
+          { this.state.conclusao }
         </Text>
       </View>
     )
