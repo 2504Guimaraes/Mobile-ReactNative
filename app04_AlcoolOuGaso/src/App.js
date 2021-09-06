@@ -109,6 +109,9 @@ class Verificador extends Component {
         this.verificar(resultado)
         this.input1.current.clear()
         this.input2.current.clear()
+        setTimeout(() => {
+          this.setState({ etanol: null, gasolina: null })
+        }, 1000)
       } 
       else {
         this.setState({ msg: 'Digite apenas números!' })
