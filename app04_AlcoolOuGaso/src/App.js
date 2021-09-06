@@ -77,47 +77,45 @@ class Verificador extends Component {
   constructor(props) {
     super(props)
 
+    this.state = { etanol: null, gasolina: null, msg: '' }
+    
     this.input1 = React.createRef()
     this.input2 = React.createRef()
 
-    this.state = { 
-      etanol: 0, 
-      gasolina: 0, 
-      resultado: null,
-      conclusao: '' 
-    } 
+    this.pegaEtanol = this.pegaEtanol.bind(this)
+    this.pegaGasolina = this.pegaGasolina.bind(this)
+    this.verificar = this.verificar.bind(this)
+    this.calcular = this.calcular.bind(this)
   }
 
-  pegaEtanol = (vlDigitado) => this.setState({ etanol: vlDigitado })
+  pegaEtanol(vlDigitado) { this.setState({ etanol: vlDigitado }) }
   
-  pegaGasolina = (vlDigitado) => this.setState({ gasolina: vlDigitado })
+  pegaGasolina(vlDigitado) { this.setState({ gasolina: vlDigitado }) }
 
-  verificar = () => {
-    const vlResultado = this.state.resultado
+  verificar(vlResultado) {
     if (vlResultado < 0.7)
-      this.setState({ conclusao: 'Use álcool.' })
+      this.setState({ msg: 'Use álcool.' })
     else if (vlResultado > 0.7)
-      this.setState({ conclusao: 'Use gasolina.' })
+      this.setState({ msg: 'Use gasolina.' })
   }
+ 
+  calcular() {
+    const etanol = this.state.etanol 
+    const gasolina = this.state.gasolina
 
-  calcular = () => {
-    const a = this.state.etanol
-    const b = this.state.gasolina
-    if ((a != null && a != 0) && (b != null && b != 0)) {
-      if (!isNaN(a) && !isNaN(b)) {
-        this.setState({ resultado: (a / b).toFixed(3) })
-        this.verificar()
+    if (etanol != null && gasolina != null) {
+      if (!isNaN(etanol) && !isNaN(gasolina)) {
+        const resultado = (etanol / gasolina).toFixed(2)
+        this.verificar(resultado)
         this.input1.current.clear()
         this.input2.current.clear()
       } 
       else {
-        this.setState({ conclusao: 'Digite apenas números!' })
+        this.setState({ msg: 'Digite apenas números!' })
       }
     } 
     else {
-      this.setState({ 
-        conclusao: 'Digite em todos os campos!' 
-      })
+      this.setState({ msg: 'Digite em todos os campos!' })
     }
   }
 
@@ -131,20 +129,22 @@ class Verificador extends Component {
               source={require('./images/img-gasolina.png')}/>
           </View>
         </View>
-        <Text style={estilo.inputTitles}>Digite o preço da gasolina</Text>
+        
+        <Text style={estilo.inputTitles}>Digite o preço do álcool</Text>
         
         <TextInput
           ref={ this.input1 }
           onChangeText={ this.pegaEtanol }
           style={estilo.inputs}
-          placeholder=" Digite o preco da gasolina" />
-        <Text style={estilo.inputTitles}>Digite o preço do álcool</Text>
+          placeholder=" Digite o preco do álcool" />
+
+        <Text style={estilo.inputTitles}>Digite o preço da gasolina</Text>
         
         <TextInput
           ref={ this.input2 }
           onChangeText={ this.pegaGasolina }
           style={estilo.inputs}
-          placeholder=" Digite o preco do álcool" />
+          placeholder=" Digite o preco da gasolina" />
         
         <TouchableHighlight
           onPress={ this.calcular }
@@ -153,7 +153,7 @@ class Verificador extends Component {
         </TouchableHighlight>
 
         <Text style={estilo.result}>
-          { this.state.conclusao }
+            { this.state.msg }
         </Text>
       </View>
     )
