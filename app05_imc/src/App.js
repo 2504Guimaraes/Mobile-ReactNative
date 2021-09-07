@@ -56,20 +56,19 @@ const estilo = StyleSheet.create({
     marginTop: 15,
     padding: 15,
     alignItems: 'center',
-    borderRadius: 3,
-    borderWidth: 2
+    borderRadius: 3
   },
   btn: {
-    backgroundColor: '#2271ff',
-    borderColor: '#0655e4'
+    backgroundColor: '#0969da',
+    borderColor: '#0969da'
   },
   btnPressed: {
-    backgroundColor: '#0d31b2',
-    borderColor: '#002094'
+    backgroundColor: '#0a5bba',
   },
   btnTxt: {
     color: '#fff', 
-    fontWeight: 'bold' 
+    fontWeight: 'bold',
+    fontSize: 16 
   },result: {
     marginTop: 35,
     textAlign: 'center'
@@ -148,21 +147,21 @@ class CalculadoraImc extends Component {
           </View>
         </View>
 
-        <Text style={estilo.inputTitles}>Digite seu peso (kg)</Text>
-        
-        <TextInput
-          ref={ this.input1 }
-          onChangeText={ this.pegaPeso }
-          style={estilo.inputs}
-          placeholder=" Ex: 75" />
-
-        <Text style={estilo.inputTitles}>Digite sua altura (m)</Text>
+        <Text style={estilo.inputTitles}>Digite sua altura (m - Metros)</Text>
         
         <TextInput
           ref={ this.input2 }
           onChangeText={ this.pegaAltura }
           style={estilo.inputs}
           placeholder=" Ex: 1.78" />
+
+        <Text style={estilo.inputTitles}>Digite seu peso (kg - Quilos)</Text>
+        
+        <TextInput
+          ref={ this.input1 }
+          onChangeText={ this.pegaPeso }
+          style={estilo.inputs}
+          placeholder=" Ex: 75" />
 
         <Pressable
           style={ ({pressed}) => [
@@ -171,7 +170,7 @@ class CalculadoraImc extends Component {
           ]}
           onPress={ this.verImc }>
           <Text style={estilo.btnTxt}>
-            Calcular IMC
+            Verificar
           </Text>
         </Pressable>
 
