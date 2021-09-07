@@ -53,14 +53,13 @@ const estilo = StyleSheet.create({
     borderRadius: 3
   },
   baseBtn: {
-    marginTop: 15,
+    marginTop: 25,
     padding: 15,
     alignItems: 'center',
-    borderRadius: 3
+    borderRadius: 5
   },
   btn: {
     backgroundColor: '#0969da',
-    borderColor: '#0969da'
   },
   btnPressed: {
     backgroundColor: '#0a5bba',
