@@ -73,9 +73,19 @@ const style = StyleSheet.create({
     color: '#fff', 
     fontWeight: 'bold'
   },
-  result: {
+  resultTxt: {
     marginTop: 35,
-    textAlign: 'center'
+    textAlign: 'center',
+    color: 'red',
+    textDecorationLine: 'underline',
+    fontWeight: 'bold',
+    fontSize: 16
+  },
+  result: {
+    marginTop: 15,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    fontSize: 30
   }
 })
 
@@ -83,12 +93,17 @@ class RandomNumber extends Component {
   constructor(props) {
     super(props)
 
-    this.state = { numero: null }
+    this.state = { numeroGerado: null }
 
-    this.pegarNumero = this.pegarNumero(this)
+    this.input = React.createRef()
+
+    this.gerarNum = this.gerarNum.bind(this)
   }
 
-  pegarNumero(n) { this.setState({ numero: n }) }
+  gerarNum() {
+    const numGerado = Math.floor(Math.random() * 10)
+    this.setState({ numeroGerado: numGerado })
+  }
 
   render() {
     return(
@@ -108,12 +123,13 @@ class RandomNumber extends Component {
           Pense em um nº de 0 à 10
         </Text>
 
-        <TextInput 
-          onChangeText={ this.pegarNumero }
+        <TextInput
+          ref={ this.input }
           style={style.input}
           placeholder="Ex: 7" />
 
         <Pressable
+          onPress={ this.gerarNum }
           style={
             ({ pressed }) => [
               style.baseBtn,
@@ -123,8 +139,11 @@ class RandomNumber extends Component {
             <Text style={style.btnTxt}>Descobrir</Text>
         </Pressable>
 
+        <Text style={style.resultTxt}>
+            Número aleatório gerado:
+        </Text>
         <Text style={style.result}>
-            Número resultante: 8
+          { this.state.numeroGerado }
         </Text>
 
      </View>
