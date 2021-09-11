@@ -2,6 +2,12 @@ import React, { Component } from 'react'
 import { Text, View, TextInput } from 'react-native'
 import style from './style'
 
+/* 
+  NOTA: Para selecionar 
+  multiplas linhas é só segurar o Alt,
+  tinha esquecido disso. 
+*/
+
 class FormularioBancario extends Component {
   constructor(props) {
     super(props)
