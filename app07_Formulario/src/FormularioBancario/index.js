@@ -16,15 +16,7 @@ class FormularioBancario extends Component {
   render() {
     return(
       <View>
-
-        <View style={style.titleBox}>
-          <Text style={style.title}>
-            Abertura de Conta
-          </Text>
-        </View>
-
-        <View style={style.yellowLine}></View>
-        
+    
         <View style={style.form}>
           <Text style={style.inputTitles}>Nome</Text>
           <TextInput
