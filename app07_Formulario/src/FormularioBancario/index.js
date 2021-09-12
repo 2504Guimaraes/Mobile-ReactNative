@@ -64,8 +64,8 @@ class FormularioBancario extends Component {
             <Picker.Item key={6} value={6} label="Ensino superior completo"/>
           </Picker>
 
-          {/* <Text style={style.inputTitles}>Limite</Text>
-          <Text style={style.inputTitles}>Brasileiro</Text> */}
+          <Text style={style.inputTitles}>Limite</Text>
+          {/* <Text style={style.inputTitles}>Brasileiro</Text> */}
 
         </View>
 
