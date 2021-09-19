@@ -17,6 +17,7 @@ class FormularioBancario extends Component {
     this.state = {
       sexoPessoa: null,
       escolaridade: null,
+      valorLimite: 0,
     }
   }
 
@@ -66,9 +67,26 @@ class FormularioBancario extends Component {
           </Picker>
 
           <Text style={style.inputTitles}>Limite</Text>
+          <Slider 
+            minimumValue={50}
+            maximumValue={200}
+            onValueChange={ 
+              (valorSelecionado) => { 
+                this.setState({ valorLimite: valorSelecionado })
+              }
+            }
+            value={ this.state.valorLimite }
+            step={1}
+            minimumTrackTintColor='#336fca'
+            maximumTrackTintColor='#a7a7a7'
+            thumbTintColor='#285aa5'
+          />
+          <Text style={{ marginTop: 15, textAlign: 'center', fontSize: 20 }}>
+            { this.state.valorLimite.toFixed(0) }
+          </Text>
           
 
-          <Text style={style.inputTitles}>Brasileiro</Text>
+          {/* <Text style={style.inputTitles}>Brasileiro</Text> */}
 
         </View>
 
