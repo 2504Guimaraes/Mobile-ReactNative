@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, TextInput } from 'react-native'
 import style from './style'
 import { Picker } from '@react-native-picker/picker'
+import Slider from '@react-native-community/slider'
 
 /* 
   NOTA: Para selecionar 
@@ -65,7 +66,9 @@ class FormularioBancario extends Component {
           </Picker>
 
           <Text style={style.inputTitles}>Limite</Text>
-          {/* <Text style={style.inputTitles}>Brasileiro</Text> */}
+          
+
+          <Text style={style.inputTitles}>Brasileiro</Text>
 
         </View>
 
