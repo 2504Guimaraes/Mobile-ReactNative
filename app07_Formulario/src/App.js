@@ -33,8 +33,7 @@ const style = StyleSheet.create({
 
 export default App = () => {
   return(
-    <View style={style.screen}>
-      <ScrollView>
+    <ScrollView style={style.screen}>
 
         <View style={style.titleBox}>
           <Text style={style.title}>Abertura de Conta</Text>
@@ -43,7 +42,6 @@ export default App = () => {
 
         <FormularioBancario />
 
-      </ScrollView>
-    </View>
+    </ScrollView>
   )
 }

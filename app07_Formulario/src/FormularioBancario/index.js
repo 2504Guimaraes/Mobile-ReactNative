@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput } from 'react-native'
+import { Text, View, TextInput, Switch } from 'react-native'
 import style from './style'
 import { Picker } from '@react-native-picker/picker'
 import Slider from '@react-native-community/slider'
@@ -18,6 +18,7 @@ class FormularioBancario extends Component {
       sexoPessoa: null,
       escolaridade: null,
       valorLimite: 0,
+      brasileiro: false
     }
   }
 
@@ -70,23 +71,35 @@ class FormularioBancario extends Component {
           <Slider 
             minimumValue={50}
             maximumValue={200}
+            step={1}
+            minimumTrackTintColor='#336fca'
+            maximumTrackTintColor='#a7a7a7'
+            thumbTintColor='#285aa5'
             onValueChange={ 
               (valorSelecionado) => { 
                 this.setState({ valorLimite: valorSelecionado })
               }
             }
             value={ this.state.valorLimite }
-            step={1}
-            minimumTrackTintColor='#336fca'
-            maximumTrackTintColor='#a7a7a7'
-            thumbTintColor='#285aa5'
           />
           <Text style={{ marginTop: 15, textAlign: 'center', fontSize: 20 }}>
             { this.state.valorLimite.toFixed(0) }
           </Text>
           
 
-          {/* <Text style={style.inputTitles}>Brasileiro</Text> */}
+          <Text style={style.inputTitles}>Brasileiro</Text>
+          <Switch 
+            trackColor={{ false: "#a7a7a7", true: "#336fca" }}
+            thumbColor={'#285aa5'}
+            value={ this.state.brasileiro }
+            onValueChange={ 
+              (valorEscolhido) => {
+                this.setState({ brasileiro: valorEscolhido }) }}
+          />
+
+          <Text style={{ textAlign: 'center', fontSize: 20 }}>
+            { (this.state.brasileiro) ? "Ativo" : "Inativo" }
+          </Text>
 
         </View>
 

@@ -6,7 +6,8 @@ const style = StyleSheet.create({
     marginTop: 15,
     backgroundColor: '#ffffff',
     padding: 15, 
-    marginLeft: 15, marginRight: 15
+    marginLeft: 15, marginRight: 15, 
+    marginBottom: 15
   },
   inputTitles: {
     marginTop: 10,
