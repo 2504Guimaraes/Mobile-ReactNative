@@ -17,6 +17,22 @@ const style = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#cecece',
     borderRadius: 2
+  },
+  baseBtn: {
+    marginTop: 25,
+    padding: 15,
+    alignItems: 'center',
+    borderRadius: 2
+  },
+  btn: {
+    backgroundColor: '#336fca',
+  },
+  btnPressed: {
+    backgroundColor: '#285aa5',
+  },
+  btnTxt: {
+    color: '#fff',
+    fontSize: 16 
   }
 })
 

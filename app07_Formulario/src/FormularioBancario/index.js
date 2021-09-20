@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, TextInput, Switch } from 'react-native'
+import { Text, View, TextInput, Switch, Pressable } from 'react-native'
 import style from './style'
 import { Picker } from '@react-native-picker/picker'
 import Slider from '@react-native-community/slider'
@@ -25,7 +25,6 @@ class FormularioBancario extends Component {
   render() {
     return(
       <View>
-    
         <View style={style.form}>
           <Text style={style.inputTitles}>Nome</Text>
           <TextInput
@@ -98,11 +97,18 @@ class FormularioBancario extends Component {
           />
 
           <Text style={{ textAlign: 'center', fontSize: 20 }}>
-            { (this.state.brasileiro) ? "Ativo" : "Inativo" }
+            { (this.state.brasileiro) ? "Brasileiro" : "Estrangeiro" }
           </Text>
 
+          <Pressable style={ ({pressed}) => [
+              style.baseBtn,
+              pressed ? style.btnPressed : style.btn  
+            ]}>
+            <Text style={style.btnTxt}>
+              Cadastrar
+            </Text>
+          </Pressable>
         </View>
-
       </View>
     )
   }
