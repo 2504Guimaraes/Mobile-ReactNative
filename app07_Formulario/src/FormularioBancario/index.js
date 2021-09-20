@@ -102,7 +102,8 @@ class FormularioBancario extends Component {
 
           <Pressable style={ ({pressed}) => [
               style.baseBtn,
-              pressed ? style.btnPressed : style.btn  
+              pressed ? 
+                style.btnPressed : style.btn  
             ]}>
             <Text style={style.btnTxt}>
               Cadastrar
