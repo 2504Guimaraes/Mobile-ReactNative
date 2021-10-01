@@ -15,12 +15,34 @@ class FormularioBancario extends Component {
     super(props)
 
     this.state = {
+      nome: null,
+      idade: null,
       sexoPessoa: null,
       escolaridade: null,
       valorLimite: 0,
-      brasileiro: false
+      brasileiro: false,
+      nacionalidade: null
     }
+
+    this.pegaNome = this.pegaNome.bind(this)
+    this.pegaIdade = this.pegaIdade.bind(this)
+    this.pegaSexo = this.pegaSexo.bind(this)
+    this.pegaEscolaridade = this.pegaEscolaridade.bind(this)
+    this.pegaLimite = this.pegaLimite.bind(this)
+    this.pegaNacionalidade = this.pegaNacionalidade.bind(this)
+    // this.mostrarDados = this.mostrarDados.bind(this)
   }
+
+  pegaNome(valorDigitado) { this.setState({ nome:  valorDigitado}) }
+  pegaIdade(valorDigitado) { this.setState({ idade:  valorDigitado}) }
+  pegaSexo(valorDigitado) { this.setState({ sexoPessoa:  valorDigitado}) }
+  pegaEscolaridade(valorDigitado) { this.setState({ escolaridade:  valorDigitado}) }
+  pegaLimite(valorDigitado) { this.setState({ valorLimite:  valorDigitado}) }
+  pegaNacionalidade(valorDigitado) { this.setState({ brasileiro:  valorDigitado}) }
+
+  // mostrarDados() {
+
+  // }
 
   render() {
     return(
@@ -28,6 +50,7 @@ class FormularioBancario extends Component {
         <View style={style.form}>
           <Text style={style.inputTitles}>Nome</Text>
           <TextInput
+            onChangeText={ this.pegaNome }
             placeholder=" Digite seu nome"
             style={style.inputs}
           />
@@ -35,6 +58,7 @@ class FormularioBancario extends Component {
 
           <Text style={style.inputTitles}>Idade</Text>
           <TextInput
+            onChangeText={ this.pegaIdade }
             placeholder=" Digite sua idade"
             style={style.inputs}
           />
@@ -46,9 +70,9 @@ class FormularioBancario extends Component {
             onValueChange={ (itemValue, itemIndex) => { 
               this.setState({ sexoPessoa: itemValue })
              }}>
-            <Picker.Item key={1} value={1} label="Masculino"/>
-            <Picker.Item key={2} value={2} label="Feminino"/>
-            <Picker.Item key={3} value={3} label="Outro"/>
+            <Picker.Item key={1} value={"Masculino"} label="Masculino"/>
+            <Picker.Item key={2} value={"Feminino"} label="Feminino"/>
+            <Picker.Item key={3} value={"Outro"} label="Outro"/>
           </Picker>
 
 
@@ -58,12 +82,12 @@ class FormularioBancario extends Component {
             onValueChange={ (itemValue, itemIndex) => {
               this.setState({ escolaridade: itemValue })
             }}>
-            <Picker.Item key={1} value={1} label="Ensino fundamental incompleto"/>
-            <Picker.Item key={2} value={2} label="Ensino fundamental completo"/>
-            <Picker.Item key={3} value={3} label="Ensino médio incompleto"/>
-            <Picker.Item key={4} value={4} label="Ensino médio completo"/>
-            <Picker.Item key={5} value={5} label="Ensino superior incompleto"/>
-            <Picker.Item key={6} value={6} label="Ensino superior completo"/>
+            <Picker.Item key={1} value={"Ensino fundamental incompleto"} label="Ensino fundamental incompleto"/>
+            <Picker.Item key={2} value={"Ensino fundamental completo"} label="Ensino fundamental completo"/>
+            <Picker.Item key={3} value={"Ensino médio incompleto"} label="Ensino médio incompleto"/>
+            <Picker.Item key={4} value={"Ensino médio completo"} label="Ensino médio completo"/>
+            <Picker.Item key={5} value={"Ensino superior incompleto"} label="Ensino superior incompleto"/>
+            <Picker.Item key={6} value={"Ensino superior completo"} label="Ensino superior completo"/>
           </Picker>
 
           <Text style={style.inputTitles}>Limite</Text>
@@ -91,24 +115,36 @@ class FormularioBancario extends Component {
             trackColor={{ false: "#a7a7a7", true: "#336fca" }}
             thumbColor={'#285aa5'}
             value={ this.state.brasileiro }
-            onValueChange={ 
-              (valorEscolhido) => {
-                this.setState({ brasileiro: valorEscolhido }) }}
+            onValueChange={
+              (valorSelecionado) => {
+                this.setState({ brasileiro: valorSelecionado })
+              }
+            }
           />
 
           <Text style={{ textAlign: 'center', fontSize: 20 }}>
             { (this.state.brasileiro) ? "Brasileiro" : "Estrangeiro" }
           </Text>
 
-          <Pressable style={ ({pressed}) => [
-              style.baseBtn,
-              pressed ? 
-                style.btnPressed : style.btn  
+          <Pressable 
+              onPress={ this.mostrarDados }
+              style={ ({pressed}) => [
+                style.baseBtn,
+                pressed ? style.btnPressed : style.btn  
             ]}>
             <Text style={style.btnTxt}>
               Cadastrar
             </Text>
           </Pressable>
+
+          {/* <Text>
+            { this.state.nome }
+            - { this.state.idade }
+            - { this.state.sexoPessoa }
+            - { this.state.escolaridade }
+            - { this.state.valorLimite }
+            - { this.state.brasileiro ? "Brasileiro" : "Estrangeiro" }
+          </Text> */}
         </View>
       </View>
     )

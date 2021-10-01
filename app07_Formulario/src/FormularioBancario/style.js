@@ -1,4 +1,3 @@
-import React, { Component } from 'react'
 import { StyleSheet } from 'react-native'
 
 const style = StyleSheet.create({
@@ -20,7 +19,7 @@ const style = StyleSheet.create({
   },
   baseBtn: {
     marginTop: 25,
-    padding: 15,
+    padding: 10,
     alignItems: 'center',
     borderRadius: 2
   },
