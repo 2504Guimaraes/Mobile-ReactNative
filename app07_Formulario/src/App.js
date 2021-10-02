@@ -8,7 +8,6 @@ import {
 } from 'react-native'
 
 import FormularioBancario from './FormularioBancario'
-import PessoaCadastrada from'./PessoaCadastrada'
 
 const style = StyleSheet.create({
   screen: {
@@ -42,7 +41,6 @@ export default App = () => {
         <View style={style.yellowLine}></View>
 
         <FormularioBancario />
-        <PessoaCadastrada />
 
     </ScrollView>
   )

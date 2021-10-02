@@ -4,6 +4,9 @@ import style from './style'
 import { Picker } from '@react-native-picker/picker'
 import Slider from '@react-native-community/slider'
 
+import PessoaCadastrada from '././PessoaCadastrada'
+import stylePessoaCadastrada from '././PessoaCadastrada'
+
 /* 
   NOTA: Para selecionar 
   multiplas linhas é só segurar o Alt,
@@ -146,6 +149,9 @@ class FormularioBancario extends Component {
             - { this.state.brasileiro ? "Brasileiro" : "Estrangeiro" }
           </Text> */}
         </View>
+
+        <PessoaCadastrada />
+
       </View>
     )
   }

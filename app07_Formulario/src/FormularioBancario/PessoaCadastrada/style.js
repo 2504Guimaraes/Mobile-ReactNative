@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from "react-native";
 
-const style = StyleSheet.create({
+const stylePessoaCadastrada = StyleSheet.create({
   personsData: {
     marginTop: 0,
     backgroundColor: '#ffffff',
