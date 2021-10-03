@@ -11,7 +11,7 @@ import ZonaCadastro from './ZonaCadastro'
 const styleApp = StyleSheet.create({
   app: {
     height: Dimensions.get('window').height,
-    backgroundColor: 'red'
+    backgroundColor: '#fff'
   }
 })
 

@@ -60,6 +60,13 @@ class ZonaCadastro extends Component {
     return(
       <ScrollView style={styleZonaCadastro.zonaCadastro}>
         <View style={styleZonaCadastro.formulario}>
+          <Text style={{
+            textAlign: 'center',
+            fontWeight: 'bold',
+            fontSize: 25
+          }}>
+            Abertura de Conta
+          </Text>
           <Text style={styleZonaCadastro.inputTitles}>Nome</Text>
           <TextInput
             onChangeText={ this.pegaNome }
@@ -146,7 +153,7 @@ class ZonaCadastro extends Component {
                       nome={ this.state.nome }
                       idade={ this.state.idade }
                       sexo={ this.state.sexoPessoa }
-                      excolari={ this.state.escolaridade }
+                      escolari={ this.state.escolaridade }
                       limite={ this.state.valorLimite }
                       brasileiro={ this.state.brasileiro }
                     /> 

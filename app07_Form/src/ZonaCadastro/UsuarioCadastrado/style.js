@@ -11,7 +11,7 @@ const styleUsuario = StyleSheet.create({
     borderStyle: 'dashed'
   },
   title: {
-    marginTop: 10,
+    marginBottom: 5,
     textAlign: "center",
     fontSize: 22,
     fontWeight: 'bold'
