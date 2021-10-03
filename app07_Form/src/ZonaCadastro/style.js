@@ -8,6 +8,7 @@ const styleZonaCadastro = StyleSheet.create({
   },
   formulario: {
     marginTop: 10,
+    marginBottom: 10,
     backgroundColor: '#ffffff',
     padding: 15,
   },

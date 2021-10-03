@@ -9,10 +9,11 @@ class ZonaCadastro extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      usuarioCadastrado: false,
       nome: null,
       idade: null,
-      sexoPessoa: null,
-      escolaridade: null,
+      sexoPessoa: 'Masculino',
+      escolaridade: 'Ensino fundamental incompleto',
       valorLimite: 0,
       brasileiro: false,
       nacionalidade: null
@@ -23,7 +24,8 @@ class ZonaCadastro extends Component {
     this.pegaEscolaridade = this.pegaEscolaridade.bind(this)
     this.pegaLimite = this.pegaLimite.bind(this)
     this.pegaNacionalidade = this.pegaNacionalidade.bind(this)
-    // this.mostrarDados = this.mostrarDados.bind(this)
+    this.avaliarSituacao = this.avaliarSituacao.bind(this)
+    this.mostrarDados = this.mostrarDados.bind(this)
   }
 
   pegaNome(valorDigitado) { this.setState({ nome:  valorDigitado}) }
@@ -32,6 +34,27 @@ class ZonaCadastro extends Component {
   pegaEscolaridade(valorDigitado) { this.setState({ escolaridade:  valorDigitado}) }
   pegaLimite(valorDigitado) { this.setState({ valorLimite:  valorDigitado}) }
   pegaNacionalidade(valorDigitado) { this.setState({ brasileiro:  valorDigitado}) }
+  
+  mostrarDados() {
+    if (this.state.usuarioCadastrado == false)
+      if (!isNaN(this.state.idade))
+        this.setState({ usuarioCadastrado: true })
+  }
+
+  avaliarSituacao() {
+    if (
+      this.state.nome != null          &&
+      this.state.idade != null         &&
+      this.state.sexoPessoa != null    &&
+      this.state.escolaridade != null  &&
+      this.state.valorLimite > 0       &&
+      this.state.brasileiro != null
+    ) { 
+      this.mostrarDados() 
+    }  
+    else 
+      console.log(this.state)
+  }
 
   render() {
     return(
@@ -105,7 +128,7 @@ class ZonaCadastro extends Component {
             { (this.state.brasileiro) ? "Brasileiro" : "Estrangeiro" }
           </Text>
           <Pressable 
-              onPress={ this.mostrarDados }
+              onPress={ this.avaliarSituacao }
               style={ ({pressed}) => [
                 styleZonaCadastro.baseBtn,
                 pressed ? 
@@ -116,17 +139,18 @@ class ZonaCadastro extends Component {
               Cadastrar
             </Text>
           </Pressable>
-
-          {/* <Text>
-            { this.state.nome }
-            - { this.state.idade }
-            - { this.state.sexoPessoa }
-            - { this.state.escolaridade }
-            - { this.state.valorLimite }
-            - { this.state.brasileiro ? "Brasileiro" : "Estrangeiro" }
-          </Text> */}
         </View>
-        <UsuarioCadastrado />
+        { 
+          this.state.usuarioCadastrado == false 
+            ? null: <UsuarioCadastrado 
+                      nome={ this.state.nome }
+                      idade={ this.state.idade }
+                      sexo={ this.state.sexoPessoa }
+                      excolari={ this.state.escolaridade }
+                      limite={ this.state.valorLimite }
+                      brasileiro={ this.state.brasileiro }
+                    /> 
+        }
       </ScrollView>
     )
   }
