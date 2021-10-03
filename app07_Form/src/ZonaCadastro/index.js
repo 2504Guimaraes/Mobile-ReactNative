@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, TextInput } from 'react-native'
+import { Text, View, ScrollView, TextInput, Switch, Pressable } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import Slider from '@react-native-community/slider'
 import styleZonaCadastro from './style'
@@ -72,7 +72,59 @@ class ZonaCadastro extends Component {
             <Picker.Item key={5} value={"Ensino superior incompleto"} label="Ensino superior incompleto"/>
             <Picker.Item key={6} value={"Ensino superior completo"} label="Ensino superior completo"/>
           </Picker>
-          
+          <Text style={styleZonaCadastro.inputTitles}>Limite</Text>
+          <Slider 
+            minimumValue={50}
+            maximumValue={200}
+            step={1}
+            minimumTrackTintColor='#336fca'
+            maximumTrackTintColor='#a7a7a7'
+            thumbTintColor='#285aa5'
+            onValueChange={ 
+              (valorSelecionado) => { 
+                this.setState({ valorLimite: valorSelecionado })
+              }
+            }
+            value={ this.state.valorLimite }
+          />
+          <Text style={{ marginTop: 15, textAlign: 'center', fontSize: 20 }}>
+            { this.state.valorLimite.toFixed(0) }
+          </Text>
+          <Text style={styleZonaCadastro.inputTitles}>Nacionalidade</Text>
+          <Switch 
+            trackColor={{ false: "#a7a7a7", true: "#336fca" }}
+            thumbColor={'#285aa5'}
+            value={ this.state.brasileiro }
+            onValueChange={
+              (valorSelecionado) => {
+                this.setState({ brasileiro: valorSelecionado })
+              }
+            }
+          />
+          <Text style={{ textAlign: 'center', fontSize: 20 }}>
+            { (this.state.brasileiro) ? "Brasileiro" : "Estrangeiro" }
+          </Text>
+          <Pressable 
+              onPress={ this.mostrarDados }
+              style={ ({pressed}) => [
+                styleZonaCadastro.baseBtn,
+                pressed ? 
+                  styleZonaCadastro.btnPressed 
+                  : styleZonaCadastro.btn  
+            ]}>
+            <Text style={styleZonaCadastro.btnTxt}>
+              Cadastrar
+            </Text>
+          </Pressable>
+
+          {/* <Text>
+            { this.state.nome }
+            - { this.state.idade }
+            - { this.state.sexoPessoa }
+            - { this.state.escolaridade }
+            - { this.state.valorLimite }
+            - { this.state.brasileiro ? "Brasileiro" : "Estrangeiro" }
+          </Text> */}
         </View>
         <UsuarioCadastrado />
       </ScrollView>
