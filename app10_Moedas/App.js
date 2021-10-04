@@ -4,14 +4,14 @@ import {
   Text,
   StyleSheet,
   Dimensions,
-  TextInput
+  TextInput,
+  Pressable
 } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 
 const style = StyleSheet.create({
   app: {
     height: Dimensions.get('window').height,
-    backgroundColor: 'pink',
     paddingLeft: 10,
     paddingRight: 10
   },
@@ -23,7 +23,7 @@ const style = StyleSheet.create({
     color: '#000'
   },
   inputTitles: {
-    marginTop: 15,
+    marginTop: 25,
     fontSize: 18,
     color: '#000'
   },
@@ -34,11 +34,13 @@ const style = StyleSheet.create({
     borderRadius: 3
   },
   inputBox: {
-    marginTop: 15,
-    backgroundColor: 'red',
+    marginTop: 10,
     padding: 10,
+    paddiTop: 5, paddingBottom: 5,
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    borderRadius: 3,
+    borderWidth: 2
   },
   de: {
     marginTop: 14,
@@ -57,6 +59,27 @@ const style = StyleSheet.create({
   },
   escolha2: {
     width: 265
+  },
+  baseBtn: {
+    marginTop: 10,
+    padding: 18,
+    alignItems: 'center',
+    borderRadius: 5
+  },
+  btn: {
+    backgroundColor: '#0969da',
+  },
+  btnPressed: {
+    backgroundColor: '#0a5bba',
+  },
+  txtBtn: {
+    color: '#fff'
+  },
+  result: {
+    textAlign: 'center',
+    marginTop: 20,
+    fontSize: 20, 
+    color: '#000'
   }
 })
 
@@ -65,7 +88,7 @@ class App extends Component {
     super(props)
     this.state = {
       moeda1: 'Real',
-      momeda2: 'Dólar'
+      moeda2: 'Dólar'
     }
   }
 
@@ -103,6 +126,17 @@ class App extends Component {
             <Picker.Item key={3} value={"Euro"} label="Euro"/>
           </Picker>
         </View>
+        <Pressable
+          style={ ({pressed}) => [
+            style.baseBtn,
+            pressed ? 
+              style.btnPressed : style.btn  
+          ]}>
+          <Text style={style.txtBtn}>Converter</Text>
+        </Pressable>
+        <Text style={style.result}>
+          Resultado: 
+        </Text>
       </View>
     )
   }
