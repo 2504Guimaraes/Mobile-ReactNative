@@ -1,112 +1,111 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, { Component } from 'react'
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
   View,
-} from 'react-native';
+  Text,
+  StyleSheet,
+  Dimensions,
+  TextInput
+} from 'react-native'
+import { Picker } from '@react-native-picker/picker'
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+const style = StyleSheet.create({
+  app: {
+    height: Dimensions.get('window').height,
+    backgroundColor: 'pink',
+    paddingLeft: 10,
+    paddingRight: 10
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  titles: {
+    textAlign: 'center',
+    fontSize: 22,
+    marginTop: 10,
+    fontWeight: 'bold',
+    color: '#000'
   },
-  sectionDescription: {
-    marginTop: 8,
+  inputTitles: {
+    marginTop: 15,
     fontSize: 18,
-    fontWeight: '400',
+    color: '#000'
   },
-  highlight: {
-    fontWeight: '700',
+  input1: {
+    marginTop: 5,
+    borderWidth: 2,
+    padding: 10,
+    borderRadius: 3
   },
-});
+  inputBox: {
+    marginTop: 15,
+    backgroundColor: 'red',
+    padding: 10,
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  de: {
+    marginTop: 14,
+    fontSize: 18,
+    color: '#000',
+    marginRight: 15
+  },
+  para: {
+    marginTop: 14,
+    fontSize: 18,
+    color: '#000',
+    marginRight: 15
+  },
+  escolha1: {
+    width: 280
+  },
+  escolha2: {
+    width: 265
+  }
+})
 
-export default App;
+class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      moeda1: 'Real',
+      momeda2: 'Dólar'
+    }
+  }
+
+  render() {
+    return(
+      <View style={style.app}>
+        <Text style={style.titles}>Conversor de Moedas</Text>
+        <Text style={style.titles}>Dólar, Real e Euro</Text>
+        <Text style={style.inputTitles}>Valor digitado</Text>
+        <TextInput
+          placeholder={"Digite a quantia desejada"}
+          style={style.input1}
+        />
+        <View style={style.inputBox}>
+          <Text style={style.de}>De:</Text>
+            <Picker
+              style={style.escolha1}
+              selectedValue={ this.state.moeda1 }
+              onValueChange={ (itemValue,itemIndex) => this.setState({ moeda1: itemValue }) }
+            >
+            <Picker.Item key={1} value={"Real"} label="Real"/>
+            <Picker.Item key={2} value={"Dólar"} label="Dólar"/>
+            <Picker.Item key={3} value={"Euro"} label="Euro"/>
+          </Picker>
+        </View>
+        <View style={style.inputBox}>
+          <Text style={style.para}>Para:</Text>
+            <Picker
+              style={style.escolha2}
+              selectedValue={ this.state.moeda2 }
+              onValueChange={ (itemValue,itemIndex) => this.setState({ moeda2: itemValue }) }
+            >
+            <Picker.Item key={1} value={"Real"} label="Real"/>
+            <Picker.Item key={2} value={"Dólar"} label="Dólar"/>
+            <Picker.Item key={3} value={"Euro"} label="Euro"/>
+          </Picker>
+        </View>
+      </View>
+    )
+  }
+}
+
+export default App
