@@ -73,7 +73,8 @@ const style = StyleSheet.create({
     backgroundColor: '#0a5bba',
   },
   txtBtn: {
-    color: '#fff'
+    color: '#fff',
+    fontSize: 16
   },
   result: {
     textAlign: 'center',
@@ -87,8 +88,48 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      quantia: null,
       moeda1: 'Real',
-      moeda2: 'Dólar'
+      moeda2: 'Dólar',
+      vlConversao: null
+    }
+    this.pegaQuantia = this.pegaQuantia.bind(this)
+    this.calcularValor = this.calcularValor.bind(this)
+    this.conversao = this.conversao.bind(this)
+  }
+
+  pegaQuantia(quantiaDigitada) {
+    this.setState({ quantia: quantiaDigitada })
+  }
+
+  calcularValor(quantia, moeda1, moeda2) {
+    if (moeda1 == 'Real' && moeda2 == 'Real')
+      return quantia
+    else if (moeda1 == 'Dólar' && moeda2 == 'Dólar')
+      return quantia
+    else if (moeda1 == 'Euro' && moeda2 == 'Euro')
+      return quantia
+    else if (moeda1 == 'Real' && moeda2 == 'Dólar')
+      return quantia * 0.19
+    else if (moeda1 == 'Dólar' && moeda2 == 'Real')
+      return quantia * 5.37
+    else if (moeda1 == 'Real' && moeda2 == 'Euro')
+      return quantia * 0.16
+    else if (moeda1 == 'Euro' && moeda2 == 'Real')
+      return quantia * 6.22
+    else if (moeda1 == 'Dólar' && moeda2 == 'Euro')
+      return quantia * 0.86
+    else if (moeda1 == 'Euro' && moeda2 == 'Dólar')
+      return quantia * 1.16
+  }
+
+  conversao() {
+    if (this.state.quantia != null) {
+      const vlConv = this.calcularValor(
+        this.state.quantia,
+        this.state.moeda1,
+        this.state.moeda2 )
+      this.setState({ vlConversao: vlConv })
     }
   }
 
@@ -99,6 +140,7 @@ class App extends Component {
         <Text style={style.titles}>Dólar, Real e Euro</Text>
         <Text style={style.inputTitles}>Valor digitado</Text>
         <TextInput
+          onChangeText={ this.pegaQuantia }
           placeholder={"Digite a quantia desejada"}
           style={style.input1}
         />
@@ -127,6 +169,7 @@ class App extends Component {
           </Picker>
         </View>
         <Pressable
+          onPress={ this.conversao }
           style={ ({pressed}) => [
             style.baseBtn,
             pressed ? 
@@ -135,7 +178,7 @@ class App extends Component {
           <Text style={style.txtBtn}>Converter</Text>
         </Pressable>
         <Text style={style.result}>
-          Resultado: 
+          Resultado: { this.state.vlConversao }
         </Text>
       </View>
     )
