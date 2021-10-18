@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView, TextInput, Switch, Pressable } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import Slider from '@react-native-community/slider'
-import { useNavigation } from '@react-navigation/core'
 import styleFormulario from './style'
 
 class Formulario extends Component {
@@ -24,8 +23,8 @@ class Formulario extends Component {
     this.pegaEscolaridade = this.pegaEscolaridade.bind(this)
     this.pegaLimite = this.pegaLimite.bind(this)
     this.pegaNacionalidade = this.pegaNacionalidade.bind(this)
+    this.enviarDados = this.enviarDados.bind(this)
     this.avaliarSituacao = this.avaliarSituacao.bind(this)
-    this.mostrarDados = this.mostrarDados.bind(this)
   }
 
   pegaNome(valorDigitado) { this.setState({ nome:  valorDigitado}) }
@@ -35,22 +34,16 @@ class Formulario extends Component {
   pegaLimite(valorDigitado) { this.setState({ valorLimite:  valorDigitado}) }
   pegaNacionalidade(valorDigitado) { this.setState({ brasileiro:  valorDigitado}) }
 
-  mostrarDados() {
-    const navigation = useNavigation()
-    if (this.state.usuarioCadastrado == false) {
-      if (!isNaN(this.state.idade)) {
-        this.setState({ usuarioCadastrado: true }) 
-        navigation.navigate('Registro', {
-          nome: this.state.nome,
-          idade: this.state.idade,
-          sexoPessoa: this.state.sexoPessoa,
-          escolaridade: this.state.escolaridade,
-          valorLimite: this.state.valorLimite,
-          brasileiro: this.state.brasileiro,
-          nacionalidade: this.state.nacionalidade
-        })
-      }
-    }
+  enviarDados() {
+    this.props.navigation.navigate('Registro', {
+      nome: this.state.nome,
+      idade: this.state.idade,
+      sexoPessoa: this.state.sexoPessoa,
+      escolaridade: this.state.escolaridade,
+      valorLimite: this.state.valorLimite,
+      brasileiro: this.state.brasileiro,
+      nacionalidade: this.state.nacionalidade
+    })
   }
 
   avaliarSituacao() {
@@ -62,10 +55,14 @@ class Formulario extends Component {
       this.state.valorLimite > 0       &&
       this.state.brasileiro != null
     ) { 
-      this.mostrarDados() 
+      this.setState({ usuarioCadastrado: true })
+      if (this.state.usuarioCadastrado == true)
+        if (!isNaN(this.state.idade))
+          this.enviarDados()
     }  
-    else 
-      console.log(this.state)
+    else {
+      console.log(this.state) 
+    }
   }
 
   render() {
