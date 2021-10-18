@@ -4,39 +4,33 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { View, Text } from 'react-native'
 
+import Formulario from './pages/Formulario/index'
+
 const Stack = createStackNavigator()
 
-const Home = () => {
-  return(
-    <View>
-      <Text>Home</Text>
-    </View>
-  )
-}
-
-const About = () => {
-  return(
-    <View>
-      <Text>About</Text>
-    </View>
-  )
-}
-
-const Contact = () => {
-  return(
-    <View>
-      <Text>Contact</Text>
-    </View>
-  )
+const infoHeaderTelas = (a, b, c, d = false) => {
+  return {
+    title: `${a}`,
+    headerStyle: { backgroundColor: `${b}` },
+    headerTintColor: `${c}`,
+    headerShown: d
+  }
 }
 
 export default App = () => {
   return(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Home" component={ Home } />
-        <Stack.Screen name="About" component={ About } />
-        <Stack.Screen name="Contact" component={ Contact } />
+        <Stack.Screen 
+          name="Formulario" 
+          component={ Formulario } 
+          options={ infoHeaderTelas(
+              'Crie sua conta',
+              '#336fca',
+              '#fff',
+              true
+            )} 
+          />        
       </Stack.Navigator>
     </NavigationContainer>
   )
