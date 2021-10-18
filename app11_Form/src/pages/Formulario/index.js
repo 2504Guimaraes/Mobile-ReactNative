@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Text, View, ScrollView, TextInput, Switch, Pressable } from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import Slider from '@react-native-community/slider'
+import { useNavigation } from '@react-navigation/core'
 import styleFormulario from './style'
 
 class Formulario extends Component {
@@ -35,9 +36,21 @@ class Formulario extends Component {
   pegaNacionalidade(valorDigitado) { this.setState({ brasileiro:  valorDigitado}) }
 
   mostrarDados() {
-    if (this.state.usuarioCadastrado == false)
-      if (!isNaN(this.state.idade))
-        this.setState({ usuarioCadastrado: true })
+    const navigation = useNavigation()
+    if (this.state.usuarioCadastrado == false) {
+      if (!isNaN(this.state.idade)) {
+        this.setState({ usuarioCadastrado: true }) 
+        navigation.navigate('Registro', {
+          nome: this.state.nome,
+          idade: this.state.idade,
+          sexoPessoa: this.state.sexoPessoa,
+          escolaridade: this.state.escolaridade,
+          valorLimite: this.state.valorLimite,
+          brasileiro: this.state.brasileiro,
+          nacionalidade: this.state.nacionalidade
+        })
+      }
+    }
   }
 
   avaliarSituacao() {
