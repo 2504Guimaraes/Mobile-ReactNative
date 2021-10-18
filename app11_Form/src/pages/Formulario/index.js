@@ -1,5 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View, ScrollView, TextInput, Switch, Pressable } from 'react-native'
+import { 
+  Text, 
+  View, 
+  ScrollView, 
+  TextInput, 
+  Switch, 
+  Pressable 
+} from 'react-native'
 import { Picker } from '@react-native-picker/picker'
 import Slider from '@react-native-community/slider'
 import styleFormulario from './style'

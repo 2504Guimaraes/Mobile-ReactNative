@@ -2,14 +2,12 @@ import 'react-native-gesture-handler'
 import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { useNavigation } from '@react-navigation/core'
 import { View, Text } from 'react-native'
 
 import Formulario from './pages/Formulario/index'
 import Registro from './pages/Registro/index'
 
 const Stack = createStackNavigator()
-const navigation = useNavigation()
 
 const infoHeaderTelas = (a, b, c, d = false) => {
   return {
@@ -25,8 +23,7 @@ export default App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen 
-          name="Formulario" 
-          navegacao={ navigation }
+          name="Formulario"  
           component={ Formulario } 
           options={ infoHeaderTelas(
               'Crie sua conta',
