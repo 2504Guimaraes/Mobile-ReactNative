@@ -8,7 +8,27 @@ import Pessoal from './Components/Pessoal/index'
 import Formacao from './Components/Formacao/index'
 import Experiencia from './Components/Experiencia/index'
 
-const infoHeaderTelas = (
+const infoTabBar = (
+  a = 'transparent',
+  b = 'transparent',
+  c = 'transparent',
+  d = 0,
+  e = 0
+) => {
+  return {
+    style: { 
+      backgroundColor: a,
+      borderTopColor: b,
+    },
+    activeTintColor: c,
+    tabStyle: {
+      paddingBottom: d,
+      paddingTop: e
+    }
+  }
+}
+
+const infoNavTelas = (
   funcGerarIcone,
   a = null ,
   b = null ,
@@ -35,13 +55,23 @@ const Tab = createBottomTabNavigator();
 export default App = () => {
   return (
     <NavigationContainer>
-      <Tab.Navigator>
+      <Tab.Navigator
+        tabBarOptions={ 
+          infoTabBar(
+            'transparent',
+            'transparent',
+            '#4285f4',
+            5,
+            5
+          )
+        }
+      >
         <Tab.Screen 
           name="Pessoal" 
           component={ Pessoal }
           options={ 
-            infoHeaderTelas(
-              () => criarIcone('user-circle', '#434343', 30), 
+            infoNavTelas(
+              () => criarIcone('user-circle', '#434343', 20), 
               "Pessoal", 
               null, 
               null, 
@@ -53,8 +83,8 @@ export default App = () => {
           name="Formação" 
           component={ Formacao }
           options={ 
-            infoHeaderTelas(
-              () => criarIcone('graduation-cap', '#434343', 30), 
+            infoNavTelas(
+              () => criarIcone('graduation-cap', '#434343', 20), 
               "Formação", 
               null, 
               null, 
@@ -66,8 +96,8 @@ export default App = () => {
           name="Experiência" 
           component={ Experiencia }
           options={
-            infoHeaderTelas(
-              () => criarIcone('address-card', '#434343', 30), 
+            infoNavTelas(
+              () => criarIcone('address-card', '#434343', 20), 
               "Experiência", 
               null, 
               null, 
