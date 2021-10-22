@@ -1,112 +1,95 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
-
-import React from 'react';
-import type {Node} from 'react';
+import React, { Component } from 'react'
 import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+  View, 
+  Text, 
+  StyleSheet, 
+  TextInput, 
+  TouchableOpacity, 
+  Keyboard
+} from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default class App extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      input: '',
+      nome: ''
+    }
+    this.gravaNome = this.gravaNome.bind(this)
+  }
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-};
+  // Todas vez que o nome armazenado muda, o armazenamento local
+  // guarda esse mesmo nome dentro dele, o associando a chave "_nome".
+  async componentDidUpdate(_, prevState) {
+    const nome = this.state.nome
+    if (prevState != nome)
+      await AsyncStorage.setItem('_nome', nome)
+  }
+  
+  // Toda vez que o App é aberto, o armazenamento local busca
+  // o valor guardado dentro de _nome e o põe no estado atual
+  // da aplicação, para mostrá-lo em tela automaticamente :D
+  async componentDidMount() {
+    await AsyncStorage.getItem('_nome')
+      .then((value) => {
+        this.setState({ nome: value })
+      })
+  }
 
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  gravaNome() {
+    this.setState({ nome: this.state.input })
+    alert('Salvo com sucesso!')
+    Keyboard.dismiss()
+  }
 
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
+  render() {
+    return(
+      <View style={styles.container}>
+        <View style={styles.viewInput}>
+          <TextInput 
+            style={styles.input}
+            value={this.state.input}
+            onChangeText={ (txtDigitado) => this.setState({ input: txtDigitado }) }
+            underlineColorAndroid="transparent"
+          />
+          <TouchableOpacity onPress={ this.gravaNome }>
+            <Text style={styles.botao}>+</Text>
+          </TouchableOpacity>
         </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
+        <Text style={styles.nome}>{ this.state.nome }</Text>
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
+  container:{
+    flex: 1,
+    marginTop: 20,
+    alignItems: 'center'
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
+  viewInput:{
+    flexDirection: 'row',
+    alignItems: 'center'
   },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
+  input:{
+    width: 300,
+    height: 40,
+    borderColor: '#000',
+    borderWidth: 1,
+    padding: 10,
   },
-  highlight: {
-    fontWeight: '700',
+    botao:{
+    backgroundColor: '#222',
+    color: '#FFF',
+    height: 40,
+    padding: 10,
+    marginLeft: 4,
   },
-});
-
-export default App;
+  nome:{
+    marginTop: 15,
+    fontSize: 30,
+    textAlign: 'center'
+  }
+})
