@@ -56,29 +56,33 @@ export default App = () => {
     })
   }
 
-  // const getTarefas = () => {
-  //   db.transaction(transacaoBD => {
-  //     transacaoBD.executeSql(
-  //       `SELECT * FROM tb_tarefas ORDER BY id DESC`,
-  //       [], 
-  //       (transacaoBD, response) => {
-  //         console.log('Tarefas lidas com sucesso!')
-  //         let comprimento = response.rows.length
+  const getTarefas = () => {
+    db.transaction(transacaoBD => {
+      transacaoBD.executeSql(
+        `SELECT * FROM tb_tarefas ORDER BY id DESC`,
+        [], 
+        (transacaoBD, response) => {
           
-  //         if (comprimento > 0) {
-  //           let results = []
-  //           for (let i = 0; i < comprimento; i++) {
-  //             let itemTabela = response.rows.item(i)
-  //             results.push({ 
-  //               id: itemTabela.id,
-  //               nome: itemTabela.nome
-  //             })
-  //           }
-  //         }
-  //       }
-  //     )
-  //   })
-  // }
+          console.log('Tarefas lidas com sucesso!')      
+          let comprimento = response.rows.length
+          if (comprimento > 0) {
+            let results = []
+            for (let i = 0; i < comprimento; i++) {
+              let itemTabela = response.rows.item(i)
+              results.push({ 
+                id: itemTabela.id,
+                nome: itemTabela.nome
+              })
+            } setTarefas(results)
+          }
+
+        }, 
+        error => {
+          console.log(`Erro ao obter tarefas feitas: ${error.message}`)
+        }
+      )
+    })
+  }
 
   return(
     <View>
