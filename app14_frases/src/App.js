@@ -11,7 +11,8 @@ export default class App extends Component {
       statusTamanho: false,
       fraseGuardada: 'Digite algo aqui e guarde essa frase.'
     }
-    this.changeDayToNight = this.changeDayToNight.bind(this)
+    this.changeBoardColor = this.changeBoardColor.bind(this)
+    this.changeStoredTxtColor = this.changeStoredTxtColor.bind(this)
     this.tellUserAboutStorage = this.tellUserAboutStorage.bind(this)
   }
 
@@ -30,12 +31,32 @@ export default class App extends Component {
       await AsyncStorage.setItem('frase_armazenada', frase)
   }
 
-  changeDayToNight() {
-    const estilo = { paddingLeft: 15, paddingRight: 15 }
+  changeBoardColor() {
+    const estilo = { 
+      display: 'flex',
+      height: 360,
+      marginTop: 15,
+      padding: 15,
+      marginBottom: 15,
+      borderWidth: 2
+    }
     if (this.state.statusDia === false) {
-      estilo.backgroundColor = 'transparent' 
+      estilo.backgroundColor = '#f5f5f5'
     }
     else { estilo.backgroundColor = 'gray' }
+    return estilo
+  }
+
+  changeStoredTxtColor() {
+    const estilo = { 
+      flex: 1,
+      fontSize: 16,
+      fontStyle: 'italic'
+    }
+    if (this.state.statusDia === false) {
+      estilo.color = '#48a868'
+    }
+    else { estilo.color = '#fff' }
     return estilo
   }
 
@@ -46,7 +67,7 @@ export default class App extends Component {
 
   render() {
     return(
-      <View style={ this.changeDayToNight() }>
+      <View style={ style.phoneScreen }>
         <Text style={style.title}>Aplicativo Frases</Text>
         <View style={style.boxButtons}>
           <Text>
@@ -68,10 +89,10 @@ export default class App extends Component {
             value={ this.state.statusTamanho }
             onValueChange= { vlSize => this.setState({ statusTamanho: vlSize }) } />
         </View>
-        <ScrollView style={style.boxTexto}>
+        <ScrollView style={ this.changeBoardColor() }>
           <TextInput
             onChangeText={ txtDigitado => this.setState({ fraseGuardada: txtDigitado }) }
-            style={style.txt}
+            style={ this.changeStoredTxtColor() }
             multiline={true}
             defaultValue={ this.state.fraseGuardada }
           />
