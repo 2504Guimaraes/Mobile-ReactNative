@@ -11,7 +11,8 @@ export default class App extends Component {
       statusTamanho: false,
       fraseGuardada: 'Digite algo aqui e guarde essa frase.'
     }
-    this.storeTypedPhrase = this.storeTypedPhrase.bind(this)
+    this.changeDayToNight = this.changeDayToNight.bind(this)
+    this.tellUserAboutStorage = this.tellUserAboutStorage.bind(this)
   }
 
   async componentDidMount() {
@@ -29,14 +30,23 @@ export default class App extends Component {
       await AsyncStorage.setItem('frase_armazenada', frase)
   }
 
-  storeTypedPhrase() {
-    alert('Frase e configurações salvas!')
+  changeDayToNight() {
+    const estilo = { paddingLeft: 15, paddingRight: 15 }
+    if (this.state.statusDia === false) {
+      estilo.backgroundColor = 'transparent' 
+    }
+    else { estilo.backgroundColor = 'gray' }
+    return estilo
+  }
+
+  tellUserAboutStorage() {
+    alert('Frase e configuração de aparência salvas!')
     Keyboard.dismiss()
   }
 
   render() {
     return(
-      <View style={style.phoneScreen}>
+      <View style={ this.changeDayToNight() }>
         <Text style={style.title}>Aplicativo Frases</Text>
         <View style={style.boxButtons}>
           <Text>
@@ -47,7 +57,7 @@ export default class App extends Component {
             onValueChange= { 
               (vlDia) => { 
                 this.setState({ statusDia: vlDia })
-                this.storeTypedPhrase()
+                this.tellUserAboutStorage()
               }
           }/>
           
