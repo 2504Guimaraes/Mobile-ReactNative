@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, Switch, ScrollView, TextInput } from 'react-native'
+import { View, Text, Switch, ScrollView, TextInput, Keyboard } from 'react-native'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import style from '../src/style'
 
 export default class App extends Component {
@@ -8,8 +9,29 @@ export default class App extends Component {
     this.state = {
       statusDia: false,
       statusTamanho: false,
-      frase: 'Digite algo aqui e guarde essa frase.'
+      fraseGuardada: 'Digite algo aqui e guarde essa frase.'
     }
+    this.storeTypedPhrase = this.storeTypedPhrase.bind(this)
+  }
+
+  async componentDidMount() {
+    await AsyncStorage.getItem('frase_armazenada')
+      .then( vlItemArmazenado => {
+        this.setState({ 
+          fraseGuardada: vlItemArmazenado 
+        })
+      })
+  }
+
+  async componentDidUpdate(_, statsAnterior) {
+    const frase = this.state.fraseGuardada
+    if (statsAnterior !== frase)
+      await AsyncStorage.setItem('frase_armazenada', frase)
+  }
+
+  storeTypedPhrase() {
+    alert('Frase e configurações salvas!')
+    Keyboard.dismiss()
   }
 
   render() {
@@ -22,7 +44,12 @@ export default class App extends Component {
           </Text>
           <Switch 
             value={ this.state.statusDia }
-            onValueChange= { vlDia => this.setState({ statusDia: vlDia }) } />
+            onValueChange= { 
+              (vlDia) => { 
+                this.setState({ statusDia: vlDia })
+                this.storeTypedPhrase()
+              }
+          }/>
           
           <Text>
             { this.state.statusTamanho ? 'Grande' : 'Pequeno' }
@@ -33,10 +60,12 @@ export default class App extends Component {
         </View>
         <ScrollView style={style.boxTexto}>
           <TextInput
+            onChangeText={ txtDigitado => this.setState({ fraseGuardada: txtDigitado }) }
             style={style.txt}
             multiline={true}
-            placeholder={ this.state.frase }
+            defaultValue={ this.state.fraseGuardada }
           />
+          {/* <Text>{ this.state.fraseGuardada }</Text> */}
         </ScrollView>
       </View>
     )
