@@ -13,22 +13,45 @@ export default class App extends Component {
     }
     this.changeBoardColor = this.changeBoardColor.bind(this)
     this.changeStoredTxtColor = this.changeStoredTxtColor.bind(this)
-    this.tellUserAboutStorage = this.tellUserAboutStorage.bind(this)
   }
 
   async componentDidMount() {
-    await AsyncStorage.getItem('frase_armazenada')
-      .then( vlItemArmazenado => {
-        this.setState({ 
-          fraseGuardada: vlItemArmazenado 
-        })
+    const atualizarItems = async (listaChaves) => {
+      await AsyncStorage.multiGet(listaChaves, (erro, storedItems) => {
+        for (let item of storedItems) {
+          console.log(item)
+          try {
+            if (item[0] === 'frase_armazenada')
+              this.setState({ fraseGuardada: item[1] })
+            else if (item[0] === 'statusDia_armazenado')
+              this.setState({ statusDia: JSON.parse(`${item[1]}`.toLowerCase()) })
+          } 
+          catch (e) {
+            console.log(e)
+          }
+        }
       })
+    }
+    atualizarItems([
+      'frase_armazenada', 
+      'statusDia_armazenado'
+    ])
   }
 
   async componentDidUpdate(_, statsAnterior) {
     const frase = this.state.fraseGuardada
-    if (statsAnterior !== frase)
-      await AsyncStorage.setItem('frase_armazenada', frase)
+    const statusDia = this.state.statusDia
+
+    try {
+      if (statsAnterior.fraseGuardada != frase)
+        await AsyncStorage.setItem('frase_armazenada', frase)
+
+      if (statsAnterior.statusDia != statusDia)
+        await AsyncStorage.setItem('statusDia_armazenado', `${statusDia}`)
+    }
+    catch(e) {
+      console.log(`Erro ao redefinir items -> ${e}`)
+    }
   }
 
   changeBoardColor() {
@@ -40,10 +63,9 @@ export default class App extends Component {
       marginBottom: 15,
       borderWidth: 2
     }
-    if (this.state.statusDia === false) {
-      estilo.backgroundColor = '#f5f5f5'
-    }
-    else { estilo.backgroundColor = 'gray' }
+    this.state.statusDia === false ?
+      estilo.backgroundColor = '#f5f5f5' : 
+      estilo.backgroundColor = 'gray'
     return estilo
   }
 
@@ -53,16 +75,10 @@ export default class App extends Component {
       fontSize: 16,
       fontStyle: 'italic'
     }
-    if (this.state.statusDia === false) {
-      estilo.color = '#48a868'
-    }
-    else { estilo.color = '#fff' }
+    this.state.statusDia === false ?
+      estilo.color = '#48a868' : 
+      estilo.color = '#fff'
     return estilo
-  }
-
-  tellUserAboutStorage() {
-    alert('Frase e configuração de aparência salvas!')
-    Keyboard.dismiss()
   }
 
   render() {
@@ -75,12 +91,8 @@ export default class App extends Component {
           </Text>
           <Switch 
             value={ this.state.statusDia }
-            onValueChange= { 
-              (vlDia) => { 
-                this.setState({ statusDia: vlDia })
-                this.tellUserAboutStorage()
-              }
-          }/>
+            onValueChange= { (vlDia) => this.setState({ statusDia: vlDia }) } 
+          />
           
           <Text>
             { this.state.statusTamanho ? 'Grande' : 'Pequeno' }
