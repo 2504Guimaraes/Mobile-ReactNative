@@ -25,6 +25,8 @@ export default class App extends Component {
               this.setState({ fraseGuardada: item[1] })
             else if (item[0] === 'statusDia_armazenado')
               this.setState({ statusDia: JSON.parse(`${item[1]}`.toLowerCase()) })
+            else if (item[0] === 'fontSize_armazenado')
+              this.setState({ statusTamanho: JSON.parse(`${item[1]}`.toLowerCase()) })
           } 
           catch (e) {
             console.log(e)
@@ -34,20 +36,25 @@ export default class App extends Component {
     }
     atualizarItems([
       'frase_armazenada', 
-      'statusDia_armazenado'
+      'statusDia_armazenado',
+      'fontSize_armazenado'
     ])
   }
 
   async componentDidUpdate(_, statsAnterior) {
     const frase = this.state.fraseGuardada
     const statusDia = this.state.statusDia
+    const tamanhoFonte = this.state.statusTamanho
 
     try {
       if (statsAnterior.fraseGuardada != frase)
         await AsyncStorage.setItem('frase_armazenada', frase)
 
-      if (statsAnterior.statusDia != statusDia)
+      else if (statsAnterior.statusDia != statusDia)
         await AsyncStorage.setItem('statusDia_armazenado', `${statusDia}`)
+
+      else if (statsAnterior.statusTamanho != tamanhoFonte)
+        await AsyncStorage.setItem('fontSize_armazenado', `${tamanhoFonte}`)
     }
     catch(e) {
       console.log(`Erro ao redefinir items -> ${e}`)
