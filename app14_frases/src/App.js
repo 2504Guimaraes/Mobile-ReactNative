@@ -12,7 +12,7 @@ export default class App extends Component {
       fraseGuardada: 'Digite algo aqui e guarde essa frase.'
     }
     this.changeBoardColor = this.changeBoardColor.bind(this)
-    this.changeStoredTxtColor = this.changeStoredTxtColor.bind(this)
+    this.changeStoredTxtColorAndSize = this.changeStoredTxtColorAndSize.bind(this)
   }
 
   async componentDidMount() {
@@ -69,15 +69,19 @@ export default class App extends Component {
     return estilo
   }
 
-  changeStoredTxtColor() {
+  changeStoredTxtColorAndSize() {
     const estilo = { 
       flex: 1,
-      fontSize: 16,
       fontStyle: 'italic'
     }
-    this.state.statusDia === false ?
-      estilo.color = '#48a868' : 
-      estilo.color = '#fff'
+    const statusDia = this.state.statusDia
+    const tamanho = this.state.statusTamanho
+
+    statusDia === true ?
+      estilo.color = '#fff' : estilo.color = '#000'
+    tamanho == true ?
+      estilo.fontSize = 30 : estilo.fontSize = 16
+
     return estilo
   }
 
@@ -104,7 +108,7 @@ export default class App extends Component {
         <ScrollView style={ this.changeBoardColor() }>
           <TextInput
             onChangeText={ txtDigitado => this.setState({ fraseGuardada: txtDigitado }) }
-            style={ this.changeStoredTxtColor() }
+            style={ this.changeStoredTxtColorAndSize() }
             multiline={true}
             defaultValue={ this.state.fraseGuardada }
           />
