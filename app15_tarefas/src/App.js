@@ -32,8 +32,15 @@ export default class App extends Component {
           <Text style={style.txtBtn}>+</Text>
         </Pressable>
       </View>
-      <ScrollView>
-        
+      <ScrollView style={style.areaTarefas}>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>01 - Tarefa boa tamanho max</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
       </ScrollView>
     </View>
     )

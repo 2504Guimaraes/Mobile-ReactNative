@@ -40,6 +40,32 @@ const style = StyleSheet.create({
     marginLeft: 21,
     fontSize: 20,
     color: '#fff'
+  },
+  areaTarefas: {
+    borderWidth: 2,
+    height: Dimensions.get('window').height - 180,
+    padding: 15
+  },
+  tarefa: {
+    marginTop: 15,
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  txtTarefa: {
+    marginTop: 5,
+    marginRight: 10,
+    fontSize: 16, color: '#000'
+  },
+  btnApagar: {
+    width: 75, 
+    paddingTop: 5,
+    paddingLeft: 10, paddingRight: 10,
+    paddingBottom: 10,
+    backgroundColor: 'red', 
+    color: '#fff'
+  },
+  txtBtnApagar: { 
+    color: '#fff', fontSize: 16 
   }
 })
 
