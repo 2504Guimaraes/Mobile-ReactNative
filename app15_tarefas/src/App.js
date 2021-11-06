@@ -25,24 +25,22 @@ const renderTarefa = ({ item }) => {
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.bd = new ConfigDB_Tarefas()
-    this.bd.getTarefas()
     this.state = { 
       tarefaAserCriada: ''
     }
-    this.defTaskBefSendToDB = this.defTaskBefSendToDB.bind(this)
-    this.sendNewTaskOnBD = this.sendNewTaskOnBD.bind(this)
+    // this.defTaskBefSendToDB = this.defTaskBefSendToDB.bind(this)
+    // this.sendNewTaskOnBD = this.sendNewTaskOnBD.bind(this)
   }
 
   defTaskBefSendToDB(txtTyped) {
     this.setState({ tarefaAserCriada: txtTyped })
   }
 
-  sendNewTaskOnBD() {
-    this.bd.addNewTarefa(
-      this.state.tarefaAserCriada
-    )
-  }
+  // sendNewTaskOnBD() {
+  //   this.bd.addNewTarefa(
+  //     this.state.tarefaAserCriada
+  //   )
+  // }
 
   render() {
     return(
@@ -53,10 +51,10 @@ export default class App extends Component {
           style={style.input}
           placeholder=' Digite o nome da tarefa'
           value={ this.state.tarefaAserCriada }
-          onChangeText={ this.defTaskBefSendToDB } 
+          onChangeText={ null } 
         />
         <Pressable 
-          onPress= { this.sendNewTaskOnBD }
+          onPress= { null }
           style={
             ({ pressed }) => [
               pressed ? style.btn2 : style.btn
