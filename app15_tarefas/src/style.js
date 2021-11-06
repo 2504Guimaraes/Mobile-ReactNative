@@ -44,22 +44,24 @@ const style = StyleSheet.create({
   areaTarefas: {
     borderWidth: 2,
     height: Dimensions.get('window').height - 180,
-    padding: 15
+    paddingLeft: 15 
   },
   tarefa: {
-    marginTop: 15,
+    marginTop: 10,
+    paddingBottom: 10,
     display: 'flex',
     flexDirection: 'row'
   },
   txtTarefa: {
+    width: (Dimensions.get('window').width - 160),
     marginTop: 5,
     marginRight: 10,
     fontSize: 16, color: '#000'
   },
   btnApagar: {
-    width: 75, 
-    paddingTop: 5,
-    paddingLeft: 10, paddingRight: 10,
+    width: 85, 
+    paddingTop: 10,
+    paddingLeft: 15, paddingRight: 15,
     paddingBottom: 10,
     backgroundColor: 'red', 
     color: '#fff'

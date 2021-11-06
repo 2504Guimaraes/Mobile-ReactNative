@@ -35,7 +35,63 @@ export default class App extends Component {
       <ScrollView style={style.areaTarefas}>
 
         <View style={style.tarefa}>
-          <Text style={style.txtTarefa}>01 - Tarefa boa tamanho max</Text>
+          <Text style={style.txtTarefa}>01 - Tarefa boa tamanho, qwqwqwqwq</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>02 - Tarefa boa tamanho, qwqwqwqwq</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>03 - Tarefa 3</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>01 - Tarefa boa tamanho, qwqwqwqwq</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>02 - Tarefa boa tamanho, qwqwqwqwq</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>03 - Tarefa 3</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>01 - Tarefa boa tamanho, qwqwqwqwq</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>02 - Tarefa boa tamanho, qwqwqwqwq</Text>
+          <Pressable style={style.btnApagar}>
+            <Text style={style.txtBtnApagar}>Apagar</Text>
+          </Pressable>
+        </View>
+
+        <View style={style.tarefa}>
+          <Text style={style.txtTarefa}>03 - Tarefa 3</Text>
           <Pressable style={style.btnApagar}>
             <Text style={style.txtBtnApagar}>Apagar</Text>
           </Pressable>
