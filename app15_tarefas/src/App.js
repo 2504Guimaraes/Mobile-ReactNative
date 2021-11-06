@@ -1,19 +1,47 @@
-import React, { Component } from 'react'
+import React, { Component, useEffect } from 'react'
 import { 
   View, 
   Text, 
   Switch, 
   ScrollView, 
   TextInput, 
-  Pressable
+  Pressable,
+  FlatList
 } from 'react-native'
 import ConfigDB_Tarefas from './Classes/ConfigDB_Tarefas'
 import style from '../src/style'
 
+const renderTarefa = ({ item }) => {
+  return(
+    <View style={style.tarefa}>
+      <Text style={style.txtTarefa}>{ item.id } - { item.nome }</Text>
+      <Pressable style={style.btnApagar}>
+        <Text style={style.txtBtnApagar}>Apagar</Text>
+      </Pressable>
+    </View>
+  )
+}
+
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.state = { }
+    this.bd = new ConfigDB_Tarefas()
+    this.bd.getTarefas()
+    this.state = { 
+      tarefaAserCriada: ''
+    }
+    this.defTaskBefSendToDB = this.defTaskBefSendToDB.bind(this)
+    this.sendNewTaskOnBD = this.sendNewTaskOnBD.bind(this)
+  }
+
+  defTaskBefSendToDB(txtTyped) {
+    this.setState({ tarefaAserCriada: txtTyped })
+  }
+
+  sendNewTaskOnBD() {
+    this.bd.addNewTarefa(
+      this.state.tarefaAserCriada
+    )
   }
 
   render() {
@@ -23,26 +51,29 @@ export default class App extends Component {
       <View style={style.boxBtnInput}>
         <TextInput 
           style={style.input}
-          placeholder=' Digite o nome da tarefa' 
+          placeholder=' Digite o nome da tarefa'
+          value={ this.state.tarefaAserCriada }
+          onChangeText={ this.defTaskBefSendToDB } 
         />
-        <Pressable style={
-          ({ pressed }) => [
-            pressed ? style.btn2 : style.btn
-          ]
-        }>
+        <Pressable 
+          onPress= { this.sendNewTaskOnBD }
+          style={
+            ({ pressed }) => [
+              pressed ? style.btn2 : style.btn
+            ]}
+          >
           <Text style={style.txtBtn}>+</Text>
         </Pressable>
       </View>
-      <ScrollView style={style.areaTarefas}>
 
-        <View style={style.tarefa}>
-          <Text style={style.txtTarefa}>01 - Tarefa 1</Text>
-          <Pressable style={style.btnApagar}>
-            <Text style={style.txtBtnApagar}>Apagar</Text>
-          </Pressable>
-        </View>
+      {/* <FlatList 
+        style={style.areaTarefas}
+        nestedScrollEnabled
+        data={ this.bd.getTarefas() }
+        renderItem={ renderTarefa }
+        key={ task => task.id }
+      /> */}
 
-      </ScrollView>
     </View>
     )
   }

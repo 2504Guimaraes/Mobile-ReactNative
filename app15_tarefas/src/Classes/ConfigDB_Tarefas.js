@@ -8,8 +8,8 @@ export default class ConfigDB_Tarefas {
   criarTabelas() {
     this.db.transaction(transacaoDB => {
       transacaoDB.executeSql(
-        `CREATE IF NOT EXISTS tb_Tarefa (
-          id_tarefa INTERGER PRIMARY KEY AUTOINCREMENT,
+        `CREATE TABLE IF NOT EXISTS tb_Tarefa (
+          id_tarefa INTEGER PRIMARY KEY AUTOINCREMENT,
           nm_tarefa VARCHAR(25)
         )`,
         [],
@@ -17,7 +17,7 @@ export default class ConfigDB_Tarefas {
           console.log('Tabela Tarefas Criada com sucesso!')
         },
         error => {
-          console.log(`Erro ao criar tabela: ${error}`)
+          console.log(`Erro ao criar tabela: ${error.message}`)
         }
       )
     })
@@ -59,11 +59,12 @@ export default class ConfigDB_Tarefas {
         'SELECT * FROM tb_Tarefa ORDER BY id_tarefa DESC',
         [],
         (transacaoDB, response) => {
-          console.log('Tarefas lidas com sucesso!')
+          console.log('Tarefas do Banco lidas com sucesso!')
           let comprimento = response.rows.length
 
           if (comprimento > 0) {
             const listaTarefas = obterListaTarefas(response, comprimento)
+            console.log(listaTarefas)
             return listaTarefas
           }
         },
