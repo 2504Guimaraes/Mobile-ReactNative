@@ -26,21 +26,14 @@ export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = { 
-      tarefaAserCriada: ''
+      tarefasComp: null,
+      tarefaDigitada: ''
     }
-    // this.defTaskBefSendToDB = this.defTaskBefSendToDB.bind(this)
-    // this.sendNewTaskOnBD = this.sendNewTaskOnBD.bind(this)
   }
 
-  defTaskBefSendToDB(txtTyped) {
-    this.setState({ tarefaAserCriada: txtTyped })
+  tarefaAserMandadaProBD(txtTyped) {
+    this.setState({ tarefaDigitada: txtTyped })
   }
-
-  // sendNewTaskOnBD() {
-  //   this.bd.addNewTarefa(
-  //     this.state.tarefaAserCriada
-  //   )
-  // }
 
   render() {
     return(
@@ -67,8 +60,8 @@ export default class App extends Component {
       {/* <FlatList 
         style={style.areaTarefas}
         nestedScrollEnabled
-        data={ this.bd.getTarefas() }
-        renderItem={ renderTarefa }
+        data={ null }
+        renderItem={ null }
         key={ task => task.id }
       /> */}
 
