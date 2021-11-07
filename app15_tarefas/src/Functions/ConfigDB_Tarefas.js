@@ -1,6 +1,6 @@
 import { openDatabase } from 'react-native-sqlite-storage'
 
-export default createDatabase = (bancoClasse) => {
+const criarTabelasDB = (bancoClasse) => {
   bancoClasse.transaction(transacaoDB => {
     transacaoDB.executeSql(
       `CREATE TABLE IF NOT EXISTS tb_Tarefa (
@@ -17,6 +17,8 @@ export default createDatabase = (bancoClasse) => {
     )
   })
 }
+
+export default criarTabelasDB
 
 export const getTarefas = (bancoClasse, objClasse) => {
   const obterListaTarefas = (res, comprimento) => {
