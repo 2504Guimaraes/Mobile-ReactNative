@@ -75,3 +75,17 @@ export const addNewTarefa = (
     }
   )
 }
+
+export const deleteTarefa = (bancoClasse, objClasse, idTarefa) => {
+  bancoClasse.executeSql(
+    `DELETE FROM tb_Tarefa WHERE id_tarefa = (?)`,
+    [idTarefa],
+    (transacaoDB, response) => {
+      console.log(`Tarefa "${idTarefa}" excluída com sucesso!`)
+      getTarefas(bancoClasse, objClasse)
+    },
+    error => {
+      console.log(`Erro ao excluir tarefa: "${error.message}"`)
+    }
+  )
+}

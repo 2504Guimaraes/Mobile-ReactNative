@@ -10,15 +10,23 @@ import {
 } from 'react-native'
 
 import { openDatabase } from 'react-native-sqlite-storage'
-import criarTabelasDB, { getTarefas, addNewTarefa } from '../src/Functions/ConfigDB_Tarefas'
+import criarTabelasDB, { 
+  getTarefas, 
+  addNewTarefa,
+  deleteTarefa 
+} from '../src/Functions/ConfigDB_Tarefas'
 import style from '../src/style'
 
 
-const renderTarefa = (item) => {
+const renderTarefa = (task, bancoClasse, objClasse) => {
   return(
-    <View key={ item.id } style={style.tarefa}>
-      <Text style={style.txtTarefa}>{ item.id } - { item.nome }</Text>
-      <Pressable style={style.btnApagar}>
+    <View key={ task.id } style={style.tarefa}>
+      <Text style={style.txtTarefa}>{ task.id } - { task.nome }</Text>
+      <Pressable style={style.btnApagar}
+        onPress={ () => { 
+          deleteTarefa(bancoClasse, objClasse, task.id) 
+        }}
+      >
         <Text style={style.txtBtnApagar}>Apagar</Text>
       </Pressable>
     </View>
@@ -73,7 +81,7 @@ export default class App extends Component {
       <ScrollView style={style.areaTarefas}>
         {
           this.state.tarefasComp.map(tarefaDisponivel => (
-            renderTarefa(tarefaDisponivel)
+            renderTarefa(tarefaDisponivel, this.db, this)
           ))
         }
       </ScrollView>
