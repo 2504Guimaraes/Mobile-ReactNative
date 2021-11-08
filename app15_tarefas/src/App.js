@@ -55,18 +55,14 @@ export default class App extends Component {
       <View style={style.phoneScreen}>
       <Text style={style.title}>Aplicativo Tarefas</Text>
       <View style={style.boxBtnInput}>
-        <TextInput 
+        <TextInput
           onChangeText={ this.pegarNmTarefa }
           style={style.input}
           placeholder=' Digite o nome da tarefa' 
         />
         <Pressable 
           onPress= { () => {
-            addNewTarefa(
-              this.db, 
-              this, 
-              this.state.tarefaDigitada
-            )
+            addNewTarefa(this.db, this, this.state.tarefaDigitada)
             getTarefas(this.db, this)
           }}
           style={
