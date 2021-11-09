@@ -1,112 +1,86 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, { Component, useState } from 'react'
+import { Text, View } from 'react-native'
+import { openDatabase } from 'react-native-sqlite-storage'
 
-import React from 'react';
-import type {Node} from 'react';
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  useColorScheme,
-  View,
-} from 'react-native';
+const myDB = openDatabase({ name: 'bancoApp16' })
 
-import {
-  Colors,
-  DebugInstructions,
-  Header,
-  LearnMoreLinks,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
+export default App = () => {
+  const [nmProduto, setNmProduto] = useState('')
+  const [qtProduto, setQtProduto] = useState(0)
+  const [produtosComp, setProdutosComp] = useState([])
 
-const Section = ({children, title}): Node => {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
+  const msgConsole = (txt) => {
+    console.log('--------------------------------------------------')
+    console.log(`- ${txt} -`)
+    console.log('--------------------------------------------------')
+  }
+
+  const criarTabelas = () => {
+    myDB.transaction(txn => { 
+      txn.executeSql(
+        `CREATE TABLE IF NOT EXISTS tb_compras (
+          id INTEGER PRIMARY KEY AUTOINCREMENT, 
+          nm_produto VARCHAR(20) NOT NULL,
+          qt_produto INTEGER DEFAULT 1
+        )`,
+        [],
+        (sqlTxn, response) => {
+          msgConsole('Tabela do Banco criada com sucesso')
+        },
+        error => {
+          msgConsole(`Erro ao criar tabela: ${error.message}`)
+        }
+      )
+    })
+  }
+
+  const deleteCompra = (id) => {
+    myDB.transaction(txn => {
+      txn.executeSql(
+        `DELETE FROM tb_compras WHERE id = ?`, [id],
+        (sqlTxn, response) => {
+          msgConsole(`Compra com ID = ${id} deletada com Sucesso!`)
+          setProdutosComp('')
+          getCompras()
+        },
+        error => {
+          msgConsole(`Erro ao deletar compra com ID = ${id}: ${error.message}`)
+        }
+      )
+    })
+  }
+
+  const addCompra = () => {
+    if(!nmProduto) {
+      alert('Informe o nome da Compra!')
+      return false
+    }
+
+    else if(!qtProduto) {
+      alert('Informe a quantida de da Compra!')
+      return false
+    }
+
+    myDB.transaction(txn => {
+      txn.executeSql(
+        `INSERT INTO tb_compras (nm_produto, qt_produto) VALUES (?,?)`,
+        [nmProduto, qtProduto],
+        (sqlTxn, response) => {
+          msgConsole(`"${qtProduto}(s) ${nmProduto}(s)" adicionado(s) com sucesso!`)
+          getTarefas()
+          setNmProduto('')
+          setQtProduto(0)
+        },
+        error => {
+          msgConsole(`Erro ao inserir produto. Erro: ${error.message}`)
+        }
+      )
+    })
+  }
+
+  return(
+    <View>
+      <Text>Oie!</Text>
     </View>
-  );
-};
-
-const App: () => Node = () => {
-  const isDarkMode = useColorScheme() === 'dark';
-
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
-  return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}>
-        <Header />
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}>
-          <Section title="Step One">
-            Edit <Text style={styles.highlight}>App.js</Text> to change this
-            screen and then come back to see your edits.
-          </Section>
-          <Section title="See Your Changes">
-            <ReloadInstructions />
-          </Section>
-          <Section title="Debug">
-            <DebugInstructions />
-          </Section>
-          <Section title="Learn More">
-            Read the docs to discover what to do next:
-          </Section>
-          <LearnMoreLinks />
-        </View>
-      </ScrollView>
-    </SafeAreaView>
-  );
-};
-
-const styles = StyleSheet.create({
-  sectionContainer: {
-    marginTop: 32,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
-  highlight: {
-    fontWeight: '700',
-  },
-});
-
-export default App;
+  )
+}
