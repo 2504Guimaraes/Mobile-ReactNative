@@ -48,7 +48,6 @@ const style = StyleSheet.create({
   },
   tarefa: {
     marginTop: 10,
-    paddingBottom: 10,
     display: 'flex',
     flexDirection: 'row'
   },
