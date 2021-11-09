@@ -1,4 +1,5 @@
 import { openDatabase } from 'react-native-sqlite-storage'
+import { NativeModules } from 'react-native'
 
 const criarTabelasDB = (bancoClasse) => {
   bancoClasse.transaction(transacaoDB => {
@@ -83,6 +84,7 @@ export const deleteTarefa = (bancoClasse, objClasse, idTarefa) => {
     (transacaoDB, response) => {
       console.log(`Tarefa "${idTarefa}" excluída com sucesso!`)
       getTarefas(bancoClasse, objClasse)
+      // NativeModules.DevSettings.reload()
     },
     error => {
       console.log(`Erro ao excluir tarefa: "${error.message}"`)

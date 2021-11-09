@@ -33,10 +33,12 @@ const renderTarefa = (task, bancoClasse, objClasse) => {
   )
 }
 
+const myDB = openDatabase({ name: 'bancoApp15' })
+
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.db = openDatabase({ name: 'bd_app_15' })
+    this.db = myDB 
     criarTabelasDB(this.db)
     this.state = { 
       tarefasComp: [],
@@ -58,7 +60,7 @@ export default class App extends Component {
         <TextInput
           onChangeText={ this.pegarNmTarefa }
           style={style.input}
-          placeholder=' Digite o nome da tarefa' 
+          placeholder=' Digite o nome da tarefa'
         />
         <Pressable 
           onPress= { () => {
@@ -76,8 +78,8 @@ export default class App extends Component {
 
       <ScrollView style={style.areaTarefas}>
         {
-          this.state.tarefasComp.map(tarefaDisponivel => (
-            renderTarefa(tarefaDisponivel, this.db, this)
+          this.state.tarefasComp.map(tarefa => (
+            renderTarefa(tarefa, this.db, this)
           ))
         }
       </ScrollView>
