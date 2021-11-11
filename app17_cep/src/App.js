@@ -5,6 +5,8 @@ import meuCEP from './meuCep'
 import style from './style'
 
 import CepUsuario from './Components/CepUsuario/CepUsuario'
+import Loading from './Components/Loading/Loading'
+import { FlatList } from 'react-native-gesture-handler'
 
 const apiCEP = axios.create({
   baseURL: `https://viacep.com.br/ws/`
@@ -28,10 +30,17 @@ export default class App extends Component {
   }
 
   render() {
-    return(
-      <View>
-        <Text>Hello World</Text>
-      </View>
-    )
+    if(this.state.loading) {
+      return(
+        <Loading />
+      )
+    }
+    else {
+      <FlatList 
+        data={ this.state.cepCarregado }
+        keyExtractor={ item => item.id.toString() }
+        renderItem={ ({ item }) => <CepUsuario data={ item } /> }
+      />
+    }
   }
 }
