@@ -44,6 +44,7 @@ const style = StyleSheet.create({
     color: '#fff'
   },
   cepShowed: {
+    marginTop: 15,
     padding: 15,
     borderWidth: 2,
     borderStyle: 'dashed',

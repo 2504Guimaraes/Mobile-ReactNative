@@ -5,7 +5,6 @@ import meuCEP from '../src/meuCep'
 import style from '../src/style'
 
 import CepUsuario from '../src/Components/CepUsuario/CepUsuario'
-import LoadingComp from '../src/Components/LoadingComp/LoadingComp'
 
 const apiCEP = axios.create({
   baseURL: `https://viacep.com.br/ws/`
@@ -31,12 +30,15 @@ export default class App extends Component {
   render() {
     if(this.state.loading) {
       return(
-        <LoadingComp />
+        <View style={style.screen}>
+          <Text>Loading...</Text>
+        </View>
       )
     }
     else {
       return(
-        <CepUsuario 
+        <View style={style.screen}>
+          <CepUsuario 
             data={{ 
               cep: this.state.cepComponent.cep,
               logradouro: this.state.cepComponent.logradouro,
@@ -44,7 +46,8 @@ export default class App extends Component {
               localidade: this.state.cepComponent.localidade,
               uf: this.state.cepComponent.uf
             }} 
-        />
+          />
+        </View>
       )
     }
   }
