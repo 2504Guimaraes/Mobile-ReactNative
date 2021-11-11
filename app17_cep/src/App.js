@@ -1,30 +1,29 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, FlatList } from 'react-native'
 import axios from 'axios'
-import meuCEP from './meuCep'
-import style from './style'
+import meuCEP from '../src/meuCep'
+import style from '../src/style'
 
-import CepUsuario from './Components/CepUsuario/CepUsuario'
-import Loading from './Components/Loading/Loading'
-import { FlatList } from 'react-native-gesture-handler'
+import CepUsuario from '../src/Components/CepUsuario/CepUsuario'
+import LoadingComp from '../src/Components/LoadingComp/LoadingComp'
 
-const apiCEP = axios.create({
-  baseURL: `https://viacep.com.br/ws/`
+const api = axios.create({
+  baseURL: `https://tarefa-backend.herokuapp.com/`
 })
 
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      cepCarregado: [],
+      tarefas: [],
       loading: true
     }
   }
 
   async componentDidMount() {
-    const response = await apiCEP.get(`/${meuCEP}/json/`)
+    const response = await api.get('/tasks')
     this.setState({
-      cepCarregado: response.data,
+      tarefas: response.data,
       loading: false
     })
   }
@@ -32,15 +31,17 @@ export default class App extends Component {
   render() {
     if(this.state.loading) {
       return(
-        <Loading />
+        <LoadingComp />
       )
     }
     else {
-      <FlatList 
-        data={ this.state.cepCarregado }
-        keyExtractor={ item => item.id.toString() }
-        renderItem={ ({ item }) => <CepUsuario data={ item } /> }
-      />
+      return(
+        <FlatList 
+          data={ this.state.tarefas }
+          keyExtractor={ item => item.id.toString() }
+          renderItem={ ({ item }) => <CepUsuario data={ item } /> }
+        />
+      )
     }
   }
 }
