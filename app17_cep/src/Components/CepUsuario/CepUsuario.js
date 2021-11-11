@@ -1,21 +1,17 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, {Component} from 'react'
+import {View, Text, StyleSheet} from 'react-native'
+import style from '../../style'
 
 export default class CepUsuario extends Component {
   render() {
-    const { title, description } =  this.props.data
+    const { cep, logradouro, bairro, localidade, uf } =  this.props.data
     return(
-      <View 
-        style={{  
-          borderColor: '#000',
-          borderWidth: 1,
-          marginLeft: 15, marginRight: 15,
-          marginTop: 15,
-          padding: 10 
-        }}
-      >
-        <Text>{ title }</Text>
-        <Text>{ description }</Text>
+      <View style={style.cepShowed}>
+        <Text style={style.txtCep}>Cep: { cep }</Text>
+        <Text style={style.txtCep}>Logradouro: { logradouro }</Text>
+        <Text style={style.txtCep}>Bairro: { bairro }</Text>
+        <Text style={style.txtCep}>Cidade: { localidade }</Text>
+        <Text style={style.txtCep}>Estado: { uf }</Text>
       </View>
     )
   }
