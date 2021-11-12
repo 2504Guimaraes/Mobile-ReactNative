@@ -8,7 +8,10 @@ import style from '../src/style'
 export default class App extends Component {
   constructor(props) {
     super(props)
-    this.state = {}
+    this.state = {
+      moedaEscolhida1: 0,
+      moedaEscolhida2: 0
+    }
   }
 
   render() {
@@ -23,25 +26,39 @@ export default class App extends Component {
         </View>
         <View style={style.inputBox}>
             <Text style={style.txtTitleInput}>De: </Text>
-            <Picker>
+            <Picker
+              selectedValue={ this.state.moedaEscolhida1 }
+              onValueChange={
+                (valor, index) => this.setState({ 
+                    moedaEscolhida1: valor
+                 })
+              }
+            >
               <Picker.Item key={1} value={1} label="Real" />
               <Picker.Item key={2} value={2} label="Dolar" />
               <Picker.Item key={3} value={3} label="Euro" />
-              <Picker.Item key={3} value={3} label="Bitcoin" />
+              <Picker.Item key={4} value={4} label="Bitcoin" />
             </Picker>
         </View>
         <View style={style.inputBox}>
             <Text style={style.txtTitleInput}>Para: </Text>
-            <Picker>
+            <Picker
+              selectedValue={ this.state.moedaEscolhida2 }
+              onValueChange={
+                (valor, index) => this.setState({ 
+                    moedaEscolhida2: valor
+                 })
+              }
+            >
               <Picker.Item key={1} value={1} label="Real" />
               <Picker.Item key={2} value={2} label="Dolar" />
               <Picker.Item key={3} value={3} label="Euro" />
-              <Picker.Item key={3} value={3} label="Bitcoin" />
+              <Picker.Item key={4} value={4} label="Bitcoin" />
             </Picker>
         </View>
         <Text style={style.titleValue}>Valor convertido</Text>
         <View style={style.boxValue}> 
-          <Text style={style.txtValue}> 2.56 </Text> 
+          <Text style={style.txtValue}> 2.45 </Text> 
         </View>
       </View>
     )
