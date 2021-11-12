@@ -65,6 +65,12 @@ const style = StyleSheet.create({
   txtProfile: {
     color: '#000',
     fontSize: 16
+  },
+  txtLink: { 
+    marginTop: 2, 
+    marginBottom: 2, 
+    color: '#0071d3', 
+    fontSize: 18 
   }
 })
 
