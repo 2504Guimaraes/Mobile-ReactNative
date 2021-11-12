@@ -15,8 +15,12 @@ const style = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center'
   },
-  txtInput: {
+  txtTitleInput: {
     marginTop: 15,
+    color: '#000',
+    fontSize: 18
+  },
+  txtInput: {
     color: '#000',
     fontSize: 18
   },

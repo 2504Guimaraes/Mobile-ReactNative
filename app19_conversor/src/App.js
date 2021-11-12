@@ -16,11 +16,13 @@ export default class App extends Component {
       <View style={style.screen}>
         <Text style={style.title}>Conversor de Moedas</Text>
         <View style={style.inputBox}>
-            <Text style={style.txtInput}>Valor:</Text>
-            <TextInput placeholder=" Digite um valor "/>
+            <Text style={style.txtTitleInput}>Valor:</Text>
+            <TextInput 
+              style={style.txtInput} 
+              placeholder=" Digite um valor "/>
         </View>
         <View style={style.inputBox}>
-            <Text style={style.txtInput}>De: </Text>
+            <Text style={style.txtTitleInput}>De: </Text>
             <Picker>
               <Picker.Item key={1} value={1} label="Real" />
               <Picker.Item key={2} value={2} label="Dolar" />
@@ -29,7 +31,7 @@ export default class App extends Component {
             </Picker>
         </View>
         <View style={style.inputBox}>
-            <Text style={style.txtInput}>Para: </Text>
+            <Text style={style.txtTitleInput}>Para: </Text>
             <Picker>
               <Picker.Item key={1} value={1} label="Real" />
               <Picker.Item key={2} value={2} label="Dolar" />
