@@ -8,6 +8,15 @@ const style = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15
   },
+  boxImg: {
+    marginTop: 20,
+    alignItems: 'center'
+  },
+  githubImg: { 
+    width: 125, 
+    height: 125, 
+    borderRadius: 100 
+  },
   title: {
     marginTop: 15,
     fontSize: 25,
@@ -46,6 +55,16 @@ const style = StyleSheet.create({
   aviso: {
     fontSize: 18,
     color: '#000'
+  },
+  profileShowed: {
+    padding: 15,
+    borderWidth: 2,
+    borderStyle: 'dashed',
+    borderColor: '#d6d6d6'
+  },
+  txtProfile: {
+    color: '#000',
+    fontSize: 16
   }
 })
 

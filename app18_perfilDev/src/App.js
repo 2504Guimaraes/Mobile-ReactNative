@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, Pressable } from 'react-native'
+import { View, Text, TextInput, Pressable, Image } from 'react-native'
 import style from './style'
 
 export default class App extends Component {
@@ -11,7 +11,15 @@ export default class App extends Component {
   render() {
     return(
       <View style={style.screen}>
-        <Text style={style.title}>Cep X Endereço</Text>
+        <Text style={style.title}>Perfil dos Devs</Text>
+        
+        <View style={style.boxImg}>
+          <Image style={style.githubImg}
+            source={{ 
+              uri: 'https://avatars.githubusercontent.com/u/44307177?v=4' }}
+          />
+        </View>
+
         <View style={style.inputBox}>
             <TextInput style={style.input}
               // value={ this.state.usuarioDigitado }
@@ -29,6 +37,14 @@ export default class App extends Component {
             </Pressable>
         </View>
 
+        <View style={style.profileShowed}>
+          <Text style={style.txtProfile}>Id: - </Text>
+          <Text style={style.txtProfile}>Nome: - </Text>
+          <Text style={style.txtProfile}>Repositórios: - </Text>
+          <Text style={style.txtProfile}>Criado em: - </Text>
+          <Text style={style.txtProfile}>Seguidores: - </Text>
+          <Text style={style.txtProfile}>Seguindo: - </Text>
+        </View>
         {/* <View>{ this.renderPerfil() }</View> */}
       </View>
     )
