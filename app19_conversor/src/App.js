@@ -105,36 +105,69 @@ export default class App extends Component {
         const response = await apiMoedas.get(`/${this.state.stringBusca}`)
         const objEscolhido = this.state.objBusca
         
-        if(objEscolhido == 'BRLUSD')
-          console.log(response.data.BRLUSD)
-
-        else if(objEscolhido == 'BRLEUR')
-          console.log(response.data.BRLEUR)
-
-        else if (objEscolhido == 'USDBRL')
-          console.log(response.data.USDBRL) 
-
-        else if (objEscolhido == 'USDEUR') 
-          console.log(response.data.USDEUR)  
-      
-        else if (objEscolhido == 'EURBRL')
-          console.log(response.data.EURBRL) 
-        
-        else if (objEscolhido == 'EURUSD')
-          console.log(response.data.EURUSD) 
-        
-        else if (objEscolhido == 'BTCBRL')
-          console.log(response.data.BTCBRL)
-        
-        else if (objEscolhido == 'BTCUSD')
-          console.log(response.data.BTCUSD)
-        
-        else if (objEscolhido == 'BTCEUR')
-          console.log(response.data.BTCEUR)
-
-        // this.setState({
-        //   vlConverdidoComponent: (response.data.low * this.state.valorDigitado)
-        // })
+        if(objEscolhido == 'BRLUSD') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if(objEscolhido == 'BRLEUR') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if (objEscolhido == 'USDBRL') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if (objEscolhido == 'USDEUR') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if (objEscolhido == 'EURBRL') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if (objEscolhido == 'EURUSD'){
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if (objEscolhido == 'BTCBRL') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if (objEscolhido == 'BTCUSD') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
+        else if (objEscolhido == 'BTCEUR') {
+          this.setState({ 
+            vlConverdidoComponent: (
+              response.data.BRLUSD.low * Number(this.state.valorDigitado)
+            ) 
+          })
+        }
       } 
       catch(e) {
         showMsg(e.message)
