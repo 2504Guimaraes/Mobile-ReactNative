@@ -17,9 +17,151 @@ export default class App extends Component {
       moedaEscolhida2: 1,
       stringBusca: '',
       objBusca: '',
+      loading: true,
       vlConverdidoComponent: null
     }
     this.pegarValor = this.pegarValor.bind(this)
+    this.preChamadaApi = this.preChamadaApi.bind(this)
+    this.mostrarVlemTela = this.mostrarVlemTela.bind(this)
+  }
+
+  preChamadaApi() {
+    const valoresIguais = () => {
+      this.setState({ vlConverdidoComponent: this.state.valorDigitado })
+    }
+    const definirBusca = (txtBusca) => {
+      this.setState({ stringBusca: txtBusca })
+    }
+    const definirObjBusca = (txtObj) => {
+      this.setState({ objBusca: txtObj })
+    }
+    const alertaUsuario = (moeda) => {
+      alert(`Conversão ${moeda} para Bitcoin indisponível na API, mas o contrário existe.`)
+    }
+
+    const moeda1 = this.state.moedaEscolhida1
+    const moeda2 = this.state.moedaEscolhida2
+
+    if (moeda1 == 1 && moeda2 == 1)
+      valoresIguais()
+    else if (moeda1 == 1 && moeda2 == 2) {
+      definirBusca('BRL-USD')
+      definirObjBusca('BRLUSD')
+    }
+    else if (moeda1 == 1 && moeda2 == 3) {
+      definirBusca('BRL-EUR')
+      definirObjBusca('BRLEUR') 
+    }
+    else if (moeda1 == 1 && moeda2 == 4)
+      alertaUsuario('Real')
+        
+    else if (moeda1 == 2 && moeda2 == 1) {
+      definirBusca('USD-BRL')
+      definirObjBusca('USDBRL') 
+    }
+    else if (moeda1 == 2 && moeda2 == 2)
+      valoresIguais()
+
+    else if (moeda1 == 2 && moeda2 == 3) {
+      definirBusca('USD-EUR')
+      definirObjBusca('USDEUR') 
+    }
+    else if (moeda1 == 2 && moeda2 == 4) {
+      alertaUsuario('Dólar') 
+    }
+    else if (moeda1 == 3 && moeda2 == 1) {
+      definirBusca('EUR-BRL')
+      definirObjBusca('EURBRL') 
+    }
+    else if (moeda1 == 3 && moeda2 == 2) {
+      definirBusca('EUR-USD')
+      definirObjBusca('EURUSD') 
+    }
+    else if (moeda1 == 3 && moeda2 == 3)
+      valoresIguais()
+    else if (moeda1 == 3 && moeda2 == 4)
+      alertaUsuario('Euro')
+        
+    else if (moeda1 == 4 && moeda2 == 1) {
+      definirBusca('BTC-BRL')
+      definirObjBusca('BTCBRL')
+    }
+    else if (moeda1 == 4 && moeda2 == 2) {
+      definirBusca('BTC-USD')
+      definirObjBusca('BTCUSD')
+    }
+    else if (moeda1 == 4 && moeda2 == 3) {
+      definirBusca('BTC-EUR')
+      definirObjBusca('BTCEUR')
+    }
+    else if (moeda1 == 4 && moeda2 == 4)
+      valoresIguais()
+  }
+
+  mostrarVlemTela(objEscolhido, response) {
+    if(objEscolhido == 'BRLUSD') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.BRLUSD.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if(objEscolhido == 'BRLEUR') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.BRLEUR.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if (objEscolhido == 'USDBRL') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.USDBRL.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if (objEscolhido == 'USDEUR') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.USDEUR.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if (objEscolhido == 'EURBRL') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.EURBRL.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if (objEscolhido == 'EURUSD'){
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.EURUSD.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if (objEscolhido == 'BTCBRL') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.BTCBRL.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if (objEscolhido == 'BTCUSD') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.BTCUSD.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
+    else if (objEscolhido == 'BTCEUR') {
+      this.setState({ 
+        vlConverdidoComponent: (
+          response.data.BTCEUR.low * Number(this.state.valorDigitado)
+        ) 
+      })
+    }
   }
 
   async componentDidUpdate() {
@@ -28,147 +170,16 @@ export default class App extends Component {
       console.log(`${txt}`)
       console.log('--------------------------------------------------')
     }
-    if (this.state.valorDigitado == null) 
+    if (this.state.loading == true) 
       return null 
     else {
       try {
-        const valoresIguais = () => {
-          this.setState({ vlConverdidoComponent: this.state.valorDigitado })
-        }
-        const definirBusca = (txtBusca) => {
-          this.setState({ stringBusca: txtBusca })
-        }
-        const definirObjBusca = (txtObj) => {
-          this.setState({ objBusca: txtObj })
-        }
-        const alertaUsuario = (moeda) => {
-          alert(`Conversão ${moeda} para Bitcoin indisponível na API, mas o contrário existe.`)
-        }
-        const moeda1 = this.state.moedaEscolhida1
-        const moeda2 = this.state.moedaEscolhida2
-
-        if (moeda1 == 1 && moeda2 == 1)
-          valoresIguais()
-        else if (moeda1 == 1 && moeda2 == 2) {
-          definirBusca('BRL-USD')
-          definirObjBusca('BRLUSD')
-        }
-        else if (moeda1 == 1 && moeda2 == 3) {
-          definirBusca('BRL-EUR')
-          definirObjBusca('BRLEUR') 
-        }
-        else if (moeda1 == 1 && moeda2 == 4)
-          alertaUsuario('Real')
-        
-        else if (moeda1 == 2 && moeda2 == 1) {
-          definirBusca('USD-BRL')
-          definirObjBusca('USDBRL') 
-        }
-        else if (moeda1 == 2 && moeda2 == 2)
-          valoresIguais()
-
-        else if (moeda1 == 2 && moeda2 == 3) {
-          definirBusca('USD-EUR')
-          definirObjBusca('USDEUR') 
-        }
-        else if (moeda1 == 2 && moeda2 == 4) {
-          alertaUsuario('Dólar') 
-        }
-        else if (moeda1 == 3 && moeda2 == 1) {
-          definirBusca('EUR-BRL')
-          definirObjBusca('EURBRL') 
-        }
-        else if (moeda1 == 3 && moeda2 == 2) {
-          definirBusca('EUR-USD')
-          definirObjBusca('EURUSD') 
-        }
-        else if (moeda1 == 3 && moeda2 == 3)
-          valoresIguais()
-        else if (moeda1 == 3 && moeda2 == 4)
-          alertaUsuario('Euro')
-        
-        else if (moeda1 == 4 && moeda2 == 1) {
-          definirBusca('BTC-BRL')
-          definirObjBusca('BTCBRL')
-        }
-        else if (moeda1 == 4 && moeda2 == 2) {
-          definirBusca('BTC-USD')
-          definirObjBusca('BTCUSD')
-        }
-        else if (moeda1 == 4 && moeda2 == 3) {
-          definirBusca('BTC-EUR')
-          definirObjBusca('BTCEUR')
-        }
-        else if (moeda1 == 4 && moeda2 == 4)
-          valoresIguais()
-
+        this.preChamadaApi()
         const response = await apiMoedas.get(`/${this.state.stringBusca}`)
         const objEscolhido = this.state.objBusca
-        
-        if(objEscolhido == 'BRLUSD') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if(objEscolhido == 'BRLEUR') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if (objEscolhido == 'USDBRL') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if (objEscolhido == 'USDEUR') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if (objEscolhido == 'EURBRL') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if (objEscolhido == 'EURUSD'){
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if (objEscolhido == 'BTCBRL') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if (objEscolhido == 'BTCUSD') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-        else if (objEscolhido == 'BTCEUR') {
-          this.setState({ 
-            vlConverdidoComponent: (
-              response.data.BRLUSD.low * Number(this.state.valorDigitado)
-            ) 
-          })
-        }
-      } 
+        this.mostrarVlemTela(objEscolhido, response)
+        this.setState({ loading: true })
+      }   
       catch(e) {
         showMsg(e.message)
       }
@@ -186,7 +197,10 @@ export default class App extends Component {
             <TextInput
               keyboardType='numeric'
               value={ this.state.valorDigitado }
-              onChangeText={ this.pegarValor }
+              onChangeText={ (txt) => { 
+                this.pegarValor(txt)
+                this.setState({ loading: false }) 
+              }}
               style={style.txtInput} 
               placeholder=" Digite um valor "/>
         </View>

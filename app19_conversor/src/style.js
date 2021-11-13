@@ -29,11 +29,11 @@ const style = StyleSheet.create({
     textAlign: 'center',
     fontSize: 22,
     fontWeight: 'bold',
-    color: '#0078e1'
+    color: '#445bca'
   },
   boxValue: {
     marginTop: 15,
-    borderColor: '#0078e1',
+    borderColor: '#445bca',
     borderWidth: 2,
     padding: 15
   },
