@@ -42,7 +42,7 @@ const style = StyleSheet.create({
     marginTop: 15,
     height: 200,
     backgroundColor: '#f5f5f5',
-    borderRadius: 5
+    borderRadius: 6
   }
 })
 

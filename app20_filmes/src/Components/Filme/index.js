@@ -4,7 +4,7 @@ import style from '../../style'
 
 export default class Filme extends Component {
   render() {
-    const { nome, sinopse, foto } = this.props.data
+    const { nome, foto, sinopse } = this.props.data
     return(
       <View style={style.filme}>
         <View style={style.boxTitleFilme}>  
