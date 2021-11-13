@@ -1,6 +1,8 @@
+import 'react-native-gesture-handler'
 import React, { Component } from 'react'
 import { FlatList, Text, View } from 'react-native'
 import axios from 'axios'
+import { createStackNavigator } from '@react-navigation/stack'
 import Filme from './Components/Filme'
 import style from '../src/style'
 
