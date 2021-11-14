@@ -2,6 +2,8 @@ package com.app20_filmes;
 
 import com.facebook.react.ReactActivity;
 
+import android.os.Bundle;
+
 public class MainActivity extends ReactActivity {
 
   /**
@@ -11,5 +13,9 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "app20_filmes";
+  }
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(null);
   }
 }

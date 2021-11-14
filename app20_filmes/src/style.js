@@ -5,7 +5,8 @@ const style = StyleSheet.create({
     width: Dimensions.get('window').width,
     backgroundColor: 'transparent',
     paddingLeft: 3,
-    paddingRight: 3
+    paddingRight: 3,
+    backgroundColor: '#fff'
   },
   title: {
     marginTop: 15,
@@ -43,6 +44,28 @@ const style = StyleSheet.create({
     height: 200,
     backgroundColor: '#f5f5f5',
     borderRadius: 6
+  },
+  zonaSinopse: {
+    padding: 15
+  },
+  tituloZonaSi: {
+    marginTop: 15,
+    color: '#000',
+    fontSize: 22,
+    fontWeight: 'bold'
+  },
+  boxSinopse: {
+    marginTop: 15,
+    padding: 15,
+    backgroundColor: '#ebf4fb',
+    borderWidth: 1,
+    borderColor: '#68bdff',
+    borderRadius: 3
+  },
+  txtSinopse: {
+    color: '#000',
+    fontSize: 16,
+    textAlign: 'justify'
   }
 })
 
