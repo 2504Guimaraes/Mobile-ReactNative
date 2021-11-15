@@ -1,57 +1,23 @@
 import React, { Component, useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, FlatList,
-ActivityIndicator, Button } from 'react-native'
+ActivityIndicator, Button, Dimensions, Pressable } from 'react-native'
 import api from '../../Services/api'
 import Card from '../Card'
 import { useNavigation } from '@react-navigation/core'
+import styles from '../../style'
 
-const styles = StyleSheet.create({
-  card:{
-    shadowColor: '#000',
-    backgroundColor: '#FFF',
-    shadowOffset: {width:0, height: 1},
-    shadowOpacity: 0.8,
-    margin: 15,
-    shadowRadius: 5,
-    borderRadius: 5,
-    elevation: 3
-  },
-  titulo:{
-    fontSize: 18,
-    padding: 15
-  },
-  descricao:{
-    fontSize: 10,
-    padding: 15
-  },
-  buttonEditar: {
-    borderRadius: 5,
-    marginVertical: 20,
-    alignSelf: 'flex-start',
-    backgroundColor: "yellow",
-    marginVertical: 0,
-    marginLeft: 10
-  },
-  buttonExcluir: {
-    borderRadius: 5,
-    marginVertical: 20,
-    alignSelf: 'flex-start',
-    backgroundColor: "gray",
-    marginVertical: 0,
-    marginLeft: 10,
-    backgroundColor: "tomato",
-    marginTop: 10,
-    marginBottom: 10
-  }
-})
 
 export default Tarefas = () => {
   const [tarefas, setTarefas] = useState([])
   const [loading, setLoading] = useState(true)
 
-  useEffect(async () => {
+  const buscarDados = async () => {
     await carregarTarefas()
     setLoading(false)
+  }
+
+  useEffect(() => {
+    buscarDados()
   }, [])
 
   const carregarTarefas = async () => {
@@ -62,8 +28,9 @@ export default Tarefas = () => {
   const navigation = useNavigation()
 
   async function irFormulario() {
-    navigation.navigate('Formulario', {atualizarLista:
-    carregarTarefas})
+    navigation.navigate('Formulario', {
+      atualizarLista: carregarTarefas
+    })
   }
 
   if(loading){
@@ -80,9 +47,20 @@ export default Tarefas = () => {
   }
   else{
     return(
-      <View style={styles.container}>
-        <Button title="Incluir" onPress={irFormulario}/>
+      <View style={styles.screen}>
+        <Text style={styles.titulo}>
+          App Cadastro Tarefas
+        </Text>
+        <Pressable
+          onPress={ irFormulario } 
+          style={({ pressed }) => [
+            pressed ? styles.btnCriarAtivado : styles.btnCriar
+          ]}>
+            <Text style={styles.txtBtn}>Criar nova Tarefa</Text>
+        </Pressable>
         <FlatList
+          style={styles.boxTasks}
+          scrollEnabled
           data={ tarefas }
           keyExtractor={ item => item.id.toString() }
           renderItem={ ({item}) => <Card data={item} funcCarregarTarefas={ carregarTarefas } /> }
