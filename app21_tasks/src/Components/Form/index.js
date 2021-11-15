@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react'
-import { View, Text, Button, TextInput, StyleSheet, Alert } from
+import { View, Text, TextInput, StyleSheet, Alert, Pressable } from
 'react-native'
 import { useNavigation } from '@react-navigation/core'
 import api from '../../Services/api'
@@ -35,7 +35,7 @@ export default Form = ({route}) => {
   }
 
   return (
-    <View>
+    <View style={styles.screen}>
       <TextInput
         style={styles.input}
         defaultValue={ route.params?.title }
@@ -46,10 +46,13 @@ export default Form = ({route}) => {
         defaultValue={route.params?.description}
         onChangeText={ (text) => setNewDescription(text) }
       />
-      <Button 
-        title="Salvar" 
-        onPress={ salvarTarefa } 
-      />
+      <Pressable 
+        onPress={ salvarTarefa }
+        style={({ pressed }) => [
+          pressed ? styles.btnCriarAtivado : styles.btnCriar
+      ]}>
+        <Text style={styles.txtBtn}>Salvar Tarefa</Text>
+      </Pressable>
     </View>
   )
 }

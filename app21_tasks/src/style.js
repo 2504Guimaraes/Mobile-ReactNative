@@ -5,10 +5,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
     paddingRight: 15
   },
-  container: {
-    height: Dimensions.get('window').height - 80,
-    backgroundColor: 'blue'
-  },
   titulo:{
     marginTop: 15,
     textAlign: 'center',
@@ -80,11 +76,11 @@ const styles = StyleSheet.create({
     fontSize: 15
   },
   input: {
-    width: 350,
-    height: 40,
+    height: 50,
     borderColor: '#DDD',
     borderWidth: 1,
     padding: 10,
+    fontSize: 16,
     backgroundColor: '#FFF',
     margin: 4
   }

@@ -13,7 +13,7 @@ const infoHeaderTelas = (a, b, c, d = false) => {
   return {
     title: `${a}`,
     headerTitleAlign: 'center',
-    headerTitleStyle: { fontSize: 25, fontWeight: 'bold' },
+    headerTitleStyle: { fontSize: 23, fontWeight: 'bold' },
     headerStyle: { 
       backgroundColor: `${b}`, 
       elevation: 0
@@ -40,6 +40,12 @@ export default App = () => {
         <Stack.Screen 
           name="Formulario" // Formulário de criação e edição de tarefas
           component={ Form } 
+          options={ infoHeaderTelas(
+            'Editar / Criar Tarefa',
+            'transparent',
+            '#000',
+            true
+          )}
         />
       </Stack.Navigator>
     </NavigationContainer>
