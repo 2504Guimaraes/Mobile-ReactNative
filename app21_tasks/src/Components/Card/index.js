@@ -74,6 +74,11 @@ export default Card = ({ data, funcCarregarTarefas }) => {
           onPress={ irFormulario } >
           <Text>Editar</Text>
         </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.buttonExcluir}
+          onPress={ excluirTarefa } >
+          <Text>Excluir</Text>
+        </TouchableOpacity>
       </View>
     </View>
   )
