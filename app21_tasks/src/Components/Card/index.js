@@ -1,5 +1,5 @@
 import React, { Component, useState } from 'react'
-import { View, Text, Stylesheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import api from '../../Services/api'
 import { useNavigation } from '@react-navigation/core'
 
@@ -46,21 +46,21 @@ const styles = StyleSheet.create({
 export default Card = ({ data, funcCarregarTarefas }) => {
   const [id, setId] = useState(data?.id)
   const [title, setTitle] = useState(data?.title)
-  const [description, setDescription] = useState({ data?.description })
-
+  const [description, setDescription] = useState(data?.description)
+  
   const excluirTarefa = async () => {
     const response = await api.delete(`/tasks/${id}`)
     await funcCarregarTarefas()
   }
-
+  
   const navigation = useNavigation()
-
+  
   const irFormulario = async () => {
-    navigation.navigate('Formulario', {
-      id: id,
+    navigation.navigate('Formulario', { 
+      id: id, 
       title: title,
-      description: description,
-      atualizarTarefa: funcCarregarTarefas
+      description: description, 
+      atualizarLista: funcCarregarTarefas
     })
   }
 
@@ -69,17 +69,16 @@ export default Card = ({ data, funcCarregarTarefas }) => {
       <View style={styles.card}>
         <Text style={styles.titulo}>{ title }</Text>
         <Text style={styles.descricao}>{ description }</Text>
-        <TouchableOpacity 
-          style={styles.buttonEditar}
-          onPress={ irFormulario } >
+        <TouchableOpacity style={styles.buttonEditar}
+          onPress={ irFormulario }>
           <Text>Editar</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.buttonExcluir}
-          onPress={ excluirTarefa } >
+        <TouchableOpacity style={styles.buttonExcluir}
+          onPress={ excluirTarefa }>
           <Text>Excluir</Text>
         </TouchableOpacity>
       </View>
     </View>
   )
 }
+  

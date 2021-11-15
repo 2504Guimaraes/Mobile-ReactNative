@@ -52,7 +52,7 @@ export default Tarefas = () => {
   useEffect(async () => {
     await carregarTarefas()
     setLoading(false)
-  },[])
+  }, [])
 
   const carregarTarefas = async () => {
     const response = await api.get('/tasks')
@@ -61,33 +61,33 @@ export default Tarefas = () => {
 
   const navigation = useNavigation()
 
-  const irFormulario = async () => {
-    navigation.navigate('Formulario', {
-      atualizarLista: carregarTarefas
-    })
+  async function irFormulario() {
+    navigation.navigate('Formulario', {atualizarLista:
+    carregarTarefas})
   }
 
-  if(loading) {
+  if(loading){
     return(
       <View 
-        style={{ 
-          alignItems: 'center',
+        style={{
+          alignItems: 'center', 
           justifyContent: 'center',
-          flex: 1
-        }}>
-          <ActivityIndicator color='#09a6ff'size={40} />
+          flex:1
+        }} >
+        <ActivityIndicator color="#09A6FF" size={40} />
       </View>
     )
   }
-  else {
-    <View style={styles.container}>
-      <FlatList 
-        data={ tarefas }
-        keyExtractor={ item => item.id.toString() }
-        renderItem={ ({ item }) => { 
-          <Card data={ item }  funcCarregarTarefas={ carregarTarefas() } /> 
-        }}
-      />
-    </View>
+  else{
+    return(
+      <View style={styles.container}>
+        <Button title="Incluir" onPress={irFormulario}/>
+        <FlatList
+          data={ tarefas }
+          keyExtractor={ item => item.id.toString() }
+          renderItem={ ({item}) => <Card data={item} funcCarregarTarefas={ carregarTarefas } /> }
+        />
+      </View>
+    )
   }
 }
