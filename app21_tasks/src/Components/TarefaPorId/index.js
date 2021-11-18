@@ -71,7 +71,7 @@ export default TarefaPorId = () => {
   }
 
   const excluirTarefa = async () => {
-    const response = await api.delete(`/tasks/${tarefa.id}`)
+    await api.delete(`/tasks/${tarefa.id}`)
     navigation.reset({
       index: 0,
       routes: [{ name: 'Tarefas' }]
