@@ -31,7 +31,6 @@ export default Form = ({route}) => {
       await route.params?.atualizarLista()
     }
 
-    // navigation.goBack()
     navigation.reset({
       index: 0,
       routes: [{ name: 'Tarefas' }]

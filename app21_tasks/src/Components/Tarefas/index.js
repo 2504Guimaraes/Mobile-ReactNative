@@ -27,7 +27,12 @@ export default Tarefas = () => {
 
   const navigation = useNavigation()
 
-  async function irFormulario() {
+
+  const buscarTarefaPorId = async () => {
+    navigation.navigate('TarefaPorId')
+  }
+
+  const irFormulario = async () => {
     navigation.navigate('Formulario', {
       atualizarLista: carregarTarefas
     })
@@ -41,7 +46,7 @@ export default Tarefas = () => {
           justifyContent: 'center',
           flex:1
         }} >
-        <ActivityIndicator color="#09A6FF" size={40} />
+        <ActivityIndicator color="#1155cc" size={60} />
       </View>
     )
   }
@@ -51,13 +56,22 @@ export default Tarefas = () => {
         <Text style={styles.titulo}>
           App Cadastro Tarefas
         </Text>
-        <Pressable
-          onPress={ irFormulario } 
-          style={({ pressed }) => [
-            pressed ? styles.btnCriarAtivado : styles.btnCriar
-          ]}>
-            <Text style={styles.txtBtn}>Criar nova Tarefa</Text>
-        </Pressable>
+        <View style={styles.boxMainButtons}>
+          <Pressable
+            onPress={ buscarTarefaPorId } 
+            style={({ pressed }) => [
+              pressed ? styles.btnBuscarAtivado : styles.btnBuscar
+            ]}>
+              <Text style={styles.txtBtn}>Buscar tarefa por ID</Text>
+          </Pressable>
+          <Pressable
+            onPress={ irFormulario } 
+            style={({ pressed }) => [
+              pressed ? styles.btnCriarAtivado : styles.btnCriar
+            ]}>
+              <Text style={styles.txtBtn}>Nova Tarefa</Text>
+          </Pressable>
+        </View>
         <FlatList
           style={styles.boxTasks}
           scrollEnabled

@@ -12,6 +12,24 @@ const styles = StyleSheet.create({
     fontSize: 26,
     color: '#000'
   },
+  boxMainButtons: {
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  btnBuscar: {
+    marginTop: 20,
+    marginRight: 12,
+    backgroundColor: '#434343',
+    borderRadius: 5,
+    padding: 15
+  },
+  btnBuscarAtivado: {
+    marginTop: 20,
+    marginRight: 12,
+    backgroundColor: '#000',
+    borderRadius: 5,
+    padding: 15
+  },
   btnCriar: {
     marginTop: 20,
     backgroundColor: '#1155cc',
@@ -32,6 +50,10 @@ const styles = StyleSheet.create({
   boxTasks: {
     marginTop: 5,
     height: Dimensions.get('window').height - 160
+  },
+  boxTask: {
+    marginTop: 15,
+    height: Dimensions.get('window').height - 250
   },
   card:{
     marginTop: 15,

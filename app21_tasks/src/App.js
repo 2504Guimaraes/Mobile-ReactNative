@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack'
 
 import Tarefas from './Components/Tarefas'
 import Form from './Components/Form'
+import TarefaPorId from './Components/TarefaPorId'
 
 const Stack = createStackNavigator()
 
@@ -42,6 +43,16 @@ export default App = () => {
           component={ Form } 
           options={ infoHeaderTelas(
             'Editar / Criar Tarefa',
+            'transparent',
+            '#000',
+            true
+          )}
+        />
+        <Stack.Screen 
+          name="TarefaPorId" // Página para buscar tarefas cadastradas pelo ID
+          component={ TarefaPorId } 
+          options={ infoHeaderTelas(
+            'Encontrar Tarefa',
             'transparent',
             '#000',
             true
