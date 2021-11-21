@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Modal,
-  Image } from 'react-native'
+  Image, PermissionsAndroid, Platform } from 'react-native'
 import { RNCamera } from 'react-native-camera'
+import CameraRoll from '@react-native-community/cameraroll'
 
 const styles = StyleSheet.create({
   container:{
@@ -38,24 +39,52 @@ export default App = () => {
   const [open, setOpen] = useState(false)
   const [capturedPhoto, setCapturedPhoto] = useState(null)
 
-  takePicture = async (camera) => {
+  const takePicture = async (camera) => {
     const options = { quality: 0.5, base64: true }
     const data = await camera.takePictureAsync(options)
 
     setCapturedPhoto(data.uri)
     setOpen(true)
     console.log('FOTO TIRADA DA CAMERA:' + data.uri)
+
+    // Chama a função salvar foto no album:
+    savePicture(data.uri)
+  }
+
+  const hasAndroidPermission = async () => {
+    const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+    const hasPermission = await PermissionsAndroid.check(permission)
+    if (hasPermission)
+      return true
+
+    const status = await PermissionsAndroid.request(permission)
+    return status === 'granted'
+  }
+
+  const savePicture = async (data) => {
+    if (Platform.OS === 'android' && !(await hasAndroidPermission()))
+      return null
+
+    CameraRoll.save(data, 'photo')
+    .then(response => {
+      console.log('SALVO COM SUCESSO: ' + response)
+    })
+    .catch(error => {
+      console.log('ERRO AO SALVAR: ' + error)
+    })
   }
 
   const toggleCam = () => {
     setType(
       type === RNCamera.Constants.Type.back ?
-      RNCamera.Constants.Type.front : RNCamera.Constants.Type.back
+        RNCamera.Constants.Type.front : 
+        RNCamera.Constants.Type.back
     )
   }
 
   return(
     <View style={styles.container}>
+      <StatusBar hidden={true}/>
       <RNCamera
         style={styles.preview}
         type={type}
@@ -115,7 +144,7 @@ export default App = () => {
               style={{margin: 10}}
               onPress={ () => setOpen(false) }
             >
-              <Text style={{ fontSize: 24}}>Fechar</Text>
+              <Text style={{fontSize: 24}}>Fechar</Text>
             </TouchableOpacity>
             <Image
               resizeMode="contain"
