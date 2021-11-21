@@ -1,5 +1,6 @@
+import 'react-native-gesture-handler'
 import React, { useState } from 'react'
-import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Modal,
+import { View, ScrollView, Text, StatusBar, StyleSheet, TouchableOpacity, Modal,
   Image, PermissionsAndroid, Platform, TextInput } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import CameraRoll from '@react-native-community/cameraroll'
@@ -141,19 +142,10 @@ export default App = () => {
       fotoUsuario !== null && fotoUsuario !== undefined 
       && fotoUsuario !== ''
     ) {
-      console.log({ 
-        nome: nome, 
-        area: area, 
-        foto_perfil: fotoUsuario 
-      })
+      console.log({ nome: nome, area: area, foto_perfil: fotoUsuario })
       alert('Usuário cadastrado com sucesso!')
     }
     else {
-      console.log({ 
-        nome: nome, 
-        area: area, 
-        foto_perfil: fotoUsuario 
-      })
       alert('Nome, área ou foto de perfil vazios.')
     }
   }
@@ -202,7 +194,6 @@ export default App = () => {
       >
       <Text style={styles.btnTxt}>Salvar Cadastro</Text>
       </TouchableOpacity>
-
     </View>
   )
 }
