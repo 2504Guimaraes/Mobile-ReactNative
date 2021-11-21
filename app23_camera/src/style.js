@@ -71,7 +71,8 @@ const styles = StyleSheet.create({
     marginTop: 14,
     borderWidth: 2,
     borderColor: '#d7d7d7',
-    fontSize: 16
+    fontSize: 16,
+    backgroundColor: '#e1e1e1'
   },
   btnSave: {
     marginTop: 14,

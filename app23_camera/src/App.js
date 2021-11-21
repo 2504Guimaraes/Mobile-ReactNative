@@ -4,12 +4,17 @@ import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Modal,
 import { RNCamera } from 'react-native-camera'
 import CameraRoll from '@react-native-community/cameraroll'
 import * as ImagePicker from 'react-native-image-picker'
+import { Picker } from '@react-native-picker/picker'
 import styles from './style'
+import { file } from '@babel/types'
 
 export default App = () => {
   const [open, setOpen] = useState(false)
   const [cameraComp, setCamera] = useState(null)
   const [capturedPhoto, setCapturedPhoto] = useState(null)
+  const [nome, setNome] = useState('')
+  const [area, setArea] = useState('Informática')
+  const [fotoUsuario, setFotoUsuario] = useState('')
 
   const takePicture = async (camera) => {
     const options = { quality: 0.5, base64: true }
@@ -39,6 +44,7 @@ export default App = () => {
 
     CameraRoll.save(data, 'photo')
     .then(response => {
+      pegarLocalFotoTirada(response)
       console.log('SALVO COM SUCESSO: ' + response)
     })
     .catch(error => {
@@ -121,6 +127,37 @@ export default App = () => {
     }
   }
 
+  // Métodos p/ salvar usuário e suas infos:
+
+  const pegarLocalFotoTirada = (fileURL) => {
+    if (fileURL !== null && fileURL !== undefined)
+      setFotoUsuario(fileURL)
+  }
+
+  const salvarUsuario = () => {
+    if (
+      nome !== null && nome !== undefined && nome !== '' &&
+      area !== null && area !== undefined && area !== '' &&
+      fotoUsuario !== null && fotoUsuario !== undefined 
+      && fotoUsuario !== ''
+    ) {
+      console.log({ 
+        nome: nome, 
+        area: area, 
+        foto_perfil: fotoUsuario 
+      })
+      alert('Usuário cadastrado com sucesso!')
+    }
+    else {
+      console.log({ 
+        nome: nome, 
+        area: area, 
+        foto_perfil: fotoUsuario 
+      })
+      alert('Nome, área ou foto de perfil vazios.')
+    }
+  }
+
   return(
     <View style={styles.screen}>
       <StatusBar hidden={ false }/>
@@ -144,17 +181,28 @@ export default App = () => {
       { mostrarFotoTirada() }
 
       <TextInput 
+        value={ nome }
+        onChangeText={ (txt) => setNome(txt) }
         style={styles.input}
         placeholder=' Digite seu nome' />
-      <TextInput 
+
+      <Picker
         style={styles.input2}
-        placeholder=' Digite sua área' />
+        selectedValue={ area }
+        onValueChange={ (valorItem, index) => setArea(valorItem) }
+      >
+        <Picker.Item key={1} value='Informática' label='Informática' />
+        <Picker.Item key={2} value='Engenharia' label='Engenharia' />
+        <Picker.Item key={3} value='Química' label='Química' />
+      </Picker>
+
       <TouchableOpacity
         style={styles.btnSave}
-        onPress={ () => {} }
+        onPress={ () => salvarUsuario() }
       >
       <Text style={styles.btnTxt}>Salvar Cadastro</Text>
       </TouchableOpacity>
+
     </View>
   )
 }
