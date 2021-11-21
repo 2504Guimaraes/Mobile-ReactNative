@@ -24,12 +24,6 @@ const styles = StyleSheet.create({
     width: largura,
     alignItems: 'center'
   },
-  // boxBtnsLinkedToCamera: {
-  //   marginBottom: 35, 
-  //   flexDirection: 'row', 
-  //   alignItems: 'flex-end', 
-  //   justifyContent: 'space-between' 
-  // },
   boxBtnsLinkedToCamera: {
     paddingTop: 30, // Servindo como substitu. de marginTop ...
     display: 'flex',
@@ -67,6 +61,28 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignSelf: 'center',
     margin: 20
+  },
+  input: {
+    borderWidth: 2,
+    borderColor: '#d7d7d7',
+    fontSize: 16
+  },
+  input2: {
+    marginTop: 14,
+    borderWidth: 2,
+    borderColor: '#d7d7d7',
+    fontSize: 16
+  },
+  btnSave: {
+    marginTop: 14,
+    padding: 18,
+    backgroundColor: '#006cc2',
+    borderRadius: 3
+  },
+  btnTxt: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center'
   }
 })
 

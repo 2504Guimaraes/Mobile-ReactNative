@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Modal,
-  Image, PermissionsAndroid, Platform } from 'react-native'
+  Image, PermissionsAndroid, Platform, TextInput } from 'react-native'
 import { RNCamera } from 'react-native-camera'
 import CameraRoll from '@react-native-community/cameraroll'
 import * as ImagePicker from 'react-native-image-picker'
@@ -143,6 +143,18 @@ export default App = () => {
 
       { mostrarFotoTirada() }
 
+      <TextInput 
+        style={styles.input}
+        placeholder=' Digite seu nome' />
+      <TextInput 
+        style={styles.input2}
+        placeholder=' Digite sua área' />
+      <TouchableOpacity
+        style={styles.btnSave}
+        onPress={ () => {} }
+      >
+      <Text style={styles.btnTxt}>Salvar Cadastro</Text>
+      </TouchableOpacity>
     </View>
   )
 }
