@@ -4,40 +4,11 @@ import { View, Text, StatusBar, StyleSheet, TouchableOpacity, Modal,
 import { RNCamera } from 'react-native-camera'
 import CameraRoll from '@react-native-community/cameraroll'
 import * as ImagePicker from 'react-native-image-picker'
-
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent: 'center'
-  },
-  preview:{
-    flex:1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  capture:{
-    flex: 0,
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20
-  },
-  camPosition:{
-    backgroundColor: '#FFF',
-    borderRadius:5,
-    padding: 10,
-    height: 40,
-    position: 'absolute',
-    right: 25,
-    top: 60
-  }
-})
+import styles from './style'
 
 export default App = () => {
-  const [type, setType] = useState(RNCamera.Constants.Type.back)
   const [open, setOpen] = useState(false)
+  const [cameraComp, setCamera] = useState(null)
   const [capturedPhoto, setCapturedPhoto] = useState(null)
 
   const takePicture = async (camera) => {
@@ -75,14 +46,6 @@ export default App = () => {
     })
   }
 
-  const toggleCam = () => {
-    setType(
-      type === RNCamera.Constants.Type.back ?
-        RNCamera.Constants.Type.front : 
-        RNCamera.Constants.Type.back
-    )
-  }
-
   const openAlbum = () => {
     const options = {
       title: 'Selecione uma foto',
@@ -103,58 +66,38 @@ export default App = () => {
     })
   }
 
-  return(
-    <View style={styles.container}>
-      <StatusBar hidden={true}/>
-      <RNCamera
-        style={styles.preview}
-        type={type}
-        flashMode={RNCamera.Constants.FlashMode.auto}
-        androidCameraPermissionOptions={{
-          title: 'Permissao para usar a camera',
-          message: 'Nós precisamos usar a sua camera',
-          buttonPositive: 'Ok',
-          buttonNegative: 'Cancelar'
-        }}
-      >
-        { 
-          ({ camera, status, recordAndroidPermissionStatus }) => {
-            if(status !== 'READY') 
-              return <View/>
-            return(
-              <View style={{
-                marginBottom: 35, 
-                flexDirection: 'row', 
-                alignItems: 'flex-end', 
-                justifyContent: 'space-between' 
-              }}>
-                <TouchableOpacity
-                  onPress={()=> takePicture(camera) }
-                  style={styles.capture}
-                >
-                  <Text>Tirar foto</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  onPress={ openAlbum }
-                  style={styles.capture}
-                >
-                  <Text>Album</Text>
-                </TouchableOpacity>
-              </View>
-            )
-          }
-        }
-      </RNCamera>
-      <View style={styles.camPosition}>
-        <TouchableOpacity onPress={ toggleCam }>
-          <Text>Trocar Câmera</Text>
+  // Métodos inventados por mim p/ renderiação:
+
+  const tirarFotoEAlbum = () => {
+    if (RNCamera.Constants.CameraStatus === 'READY')
+      return null 
+    return(
+      <View style={styles.boxBtnsLinkedToCamera}>
+        <TouchableOpacity 
+          style={styles.btnTakePic} 
+          onPress={ () => takePicture(cameraComp) } >
+          <Text style={styles.txtBtnCamera}>
+            Tirar foto
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity 
+          style={styles.btnOpenAlbum}
+          onPress={ openAlbum }
+        >
+          <Text style={styles.txtBtnCamera}>
+            Galeria de usuários
+          </Text>
         </TouchableOpacity>
       </View>
-      {
-        capturedPhoto && <Modal
+    ) 
+  }
+
+  const mostrarFotoTirada = () => {
+    if (capturedPhoto !== null && capturedPhoto !== undefined) {
+      return(
+        <Modal
           animationType='slide' transparent={false}
-          visible={open}
-        >
+          visible={open}>
           <View style={{
             flex:1, 
             justifyContent: 'center', 
@@ -174,7 +117,32 @@ export default App = () => {
             />
           </View>
         </Modal>
-      }
+      )
+    }
+  }
+
+  return(
+    <View style={styles.screen}>
+      <StatusBar hidden={ false }/>
+      <Text style={styles.title}>Criação de Crachás</Text>
+      <RNCamera
+        style={styles.preview}
+        type={ RNCamera.Constants.Type.front }
+        ref={ rncamera => setCamera(rncamera) }
+        autoFocus={ RNCamera.Constants.AutoFocus.on }
+        flashMode={ RNCamera.Constants.FlashMode.auto }
+        androidCameraPermissionOptions={{
+          title: 'Permissao para usar a camera',
+          message: 'Nós precisamos usar a sua camera',
+          buttonPositive: 'Ok',
+          buttonNegative: 'Cancelar'
+        }}
+      />
+
+      { tirarFotoEAlbum() }
+
+      { mostrarFotoTirada() }
+
     </View>
   )
 }
