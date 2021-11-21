@@ -5,36 +5,6 @@ import { RNCamera } from 'react-native-camera'
 import CameraRoll from '@react-native-community/cameraroll'
 import * as ImagePicker from 'react-native-image-picker'
 
-const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    justifyContent: 'center'
-  },
-  preview:{
-    flex:1,
-    justifyContent: 'flex-end',
-    alignItems: 'center'
-  },
-  capture:{
-    flex: 0,
-    backgroundColor: '#FFF',
-    borderRadius: 5,
-    padding: 15,
-    paddingHorizontal: 20,
-    alignSelf: 'center',
-    margin: 20
-  },
-  camPosition:{
-    backgroundColor: '#FFF',
-    borderRadius:5,
-    padding: 10,
-    height: 40,
-    position: 'absolute',
-    right: 25,
-    top: 60
-  }
-})
-
 export default App = () => {
   const [type, setType] = useState(RNCamera.Constants.Type.back)
   const [open, setOpen] = useState(false)
@@ -178,3 +148,38 @@ export default App = () => {
     </View>
   )
 }
+
+/* 
+  Posição do Estilo mudada para facilitar leitura do código
+  fonte no Github. 
+*/
+
+const styles = StyleSheet.create({
+  container:{
+    flex:1,
+    justifyContent: 'center'
+  },
+  preview:{
+    flex:1,
+    justifyContent: 'flex-end',
+    alignItems: 'center'
+  },
+  capture:{
+    flex: 0,
+    backgroundColor: '#FFF',
+    borderRadius: 5,
+    padding: 15,
+    paddingHorizontal: 20,
+    alignSelf: 'center',
+    margin: 20
+  },
+  camPosition:{
+    backgroundColor: '#FFF',
+    borderRadius:5,
+    padding: 10,
+    height: 40,
+    position: 'absolute',
+    right: 25,
+    top: 60
+  }
+})
