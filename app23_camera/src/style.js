@@ -1,12 +1,12 @@
 import { Dimensions, StyleSheet } from "react-native"
 
-const largura = 150
-const altura = 4 * largura / 3
+const numeroIdentico = 200
+const largura = numeroIdentico
+const altura = numeroIdentico
 
 const styles = StyleSheet.create({
   screen:{
     backgroundColor: '#f5f5f5',
-    minHeight: Dimensions.get('window').height,
     marginLeft: 15,
     marginRight: 15
   },
@@ -84,6 +84,32 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 16,
     textAlign: 'center'
+  },
+  usuario: {
+    marginTop: 15,
+    borderWidth: 2,
+    borderColor: '#cecece',
+    padding: 15,
+    display: 'flex',
+    flexDirection: 'row',
+    borderRadius: 5
+  },
+  imgUser: {
+    backgroundColor: '#cecece',
+    height: 90, width: 90,
+    borderRadius: 5
+  },
+  boxInfoUser: {
+    marginLeft: 10
+  },
+  txtNm: {
+    color: '#000',
+    fontSize: 22,
+    fontWeight: 'bold'
+  },
+  txtArea: {
+    color: '#000',
+    fontSize: 20
   }
 })
 
