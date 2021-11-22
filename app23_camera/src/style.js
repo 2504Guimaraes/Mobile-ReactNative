@@ -100,7 +100,8 @@ const styles = StyleSheet.create({
     borderRadius: 5
   },
   boxInfoUser: {
-    marginLeft: 10
+    marginLeft: 10,
+    maxWidth: 195
   },
   txtNm: {
     color: '#000',

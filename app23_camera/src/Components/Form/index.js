@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { View, ScrollView, Text, StatusBar, StyleSheet, TouchableOpacity, Modal,
   Image, PermissionsAndroid, Platform, TextInput } from 'react-native'
 import { RNCamera } from 'react-native-camera'
@@ -9,6 +9,7 @@ import { file } from '@babel/types'
 import { useNavigation } from '@react-navigation/core'
 import styles from '../../style'
 
+import { criarTabelas, addUsuario } from '../../Database'
 
 export default Form = () => {
   const [open, setOpen] = useState(false)
@@ -17,6 +18,14 @@ export default Form = () => {
   const [nome, setNome] = useState('')
   const [area, setArea] = useState('Informática')
   const [fotoUsuario, setFotoUsuario] = useState('')
+
+  const iniciarBancoApp = async () => {
+    await criarTabelas()
+  }
+
+  useEffect(() => {
+    iniciarBancoApp()
+  }, [])
 
   const takePicture = async (camera) => {
     const options = { quality: 0.5, base64: true }
@@ -122,14 +131,18 @@ export default Form = () => {
   }
 
   const salvarUsuario = () => {
+    const limparInput = () => setNome('')
     if (
       nome !== null && nome !== undefined && nome !== '' &&
       area !== null && area !== undefined && area !== '' &&
       fotoUsuario !== null && fotoUsuario !== undefined 
       && fotoUsuario !== ''
     ) {
+      console.log('Usuário que você criou abaixo:')
       console.log({ nome: nome, area: area, foto_perfil: fotoUsuario })
+      addUsuario(nome, area, fotoUsuario)
       alert('Usuário cadastrado com sucesso!')
+      limparInput()
     }
     else {
       alert('Nome, área ou foto de perfil vazios.')
